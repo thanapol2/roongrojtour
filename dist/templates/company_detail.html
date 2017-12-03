@@ -10,11 +10,7 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
 	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 
-    <!-- data table style script -->
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.css">
+
 
 	<script type="text/javascript" src="{{ url_for('static', filename='js/invoice_search.js') }}"></script>
 
@@ -33,18 +29,18 @@
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">หน้าหลัก <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/api/search_tour">หน้าจัดการลูกค้า</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/api/search_invoice">Invoice</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/api/search_payment">Payment</a>
-                </li>
+				<li class="nav-item active">
+					<a class="nav-link" href="/">หน้าหลัก <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="lend">หน้าจัดการลูกค้า</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="equipment">Invoice</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="category">Payment</a>
+				</li>
 			</ul>
         </div>
     </nav>
@@ -61,7 +57,7 @@
         <div class="breadcrumb-holder container-fluid">
             <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="/api/search_tour">Search Members</a></li>
+                <li class="breadcrumb-item"><a href="search_tour.html">Search Members</a></li>
                 <li class="breadcrumb-item active">Customer Form</li>
             </ul>
         </div>
@@ -72,17 +68,7 @@
                     <!-- Left form  -->
                     <div class="col-lg-8">
                         <div class="card-header d-flex align-items-center">
-                            <div class="col-sm-4">
-                                <h3 class="h4">ข้อมูลพื้นฐาน</h3>
-                            </div>
-                            <div class="col-sm-3">
-                            </div>
-                            <div class="col-sm-2">
-                                <h3 class="h4">Tour ID : </h3>
-                            </div>
-                             <div class="col-sm-3">
-                                <h3 class="h4">{{ data["TOUR_ID"] }}</h3>
-                            </div>
+                            <h3 class="h4">ข้อมูลพื้นฐาน</h3>
                         </div>
                         <div class="card-body">
                             <form class="form-horizontal">
@@ -100,10 +86,10 @@
                                                 </select>
                                             </div>
                                             <div class="col-sm-5">
-                                                <input id="name_th" type="text" placeholder="ชือ (ภาษาไทย)" class="form-control" value= '{{ data["THAI_NAME"] }}' >
+                                                <input id="name_th" type="text" placeholder="ชือ (ภาษาไทย)" class="form-control">
                                             </div>
                                             <div class="col-sm-5">
-                                                <input id="surname_th" type="text" placeholder="นามสกุล (ภาษาไทย)" class="form-control" value= '{{ data["THAI_SURNAME"] }}'>
+                                                <input id="surname_th" type="text" placeholder="นามสกุล (ภาษาไทย)" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -124,10 +110,10 @@
                                                 </select>
                                             </div>
                                             <div class="col-sm-5">
-                                                <input id="name_en" type="text" placeholder="Name (English)" class="form-control" value= '{{ data["ENG_NAME"] }}'>
+                                                <input id="name_en" type="text" placeholder="Name (English)" class="form-control">
                                             </div>
                                             <div class="col-sm-5">
-                                                <input id="surname_en" type="text" placeholder="Surname (English)" class="form-control" value= '{{ data["ENG_SURNAME"] }}'>
+                                                <input id="surname_en" type="text" placeholder="Surname (English)" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -152,39 +138,13 @@
                                 </div>
                                 <div class="line"></div>
                                 <!-- ++++++++++++++++++++++ Gender +++++++++++++++++++++ -->
-                                <!-- ++++++++++++++++++++++ EMAIL ++++++++++++++++++++++ -->
-                                <div class="form-group row">
-                                    <label class="col-sm-2 form-control-label">EMAIL</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-sm-7">
-                                                <input id="email" type="email" placeholder="EMAIL" class="form-control" value= '{{ data["EMAIL"] }}'>
-                                            </div>                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="line"></div>
-                                <!-- ++++++++++++++++++++++ EMAIL ++++++++++++++++++++++ -->
-                                <!-- ++++++++++++++++++++++ TEL ++++++++++++++++++++++ -->
-                                <div class="form-group row">
-                                    <label class="col-sm-2 form-control-label">เบอร์ติดต่อ</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-sm-7">
-                                                <input id="tel" type="text" placeholder="เบอร์ติดต่อ" class="form-control" value= '{{ data["TEL"] }}'>
-                                            </div>                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="line"></div>
-                                <!-- ++++++++++++++++++++++ TEL ++++++++++++++++++++++ -->
                                 <!-- ++++++++++++++++++++++ Person ID ++++++++++++++++++++++ -->
                                 <div class="form-group row">
                                     <label class="col-sm-2 form-control-label">รหัสประชาชน</label>
                                     <div class="col-sm-10">
                                         <div class="row">
                                             <div class="col-sm-7">
-                                                <input id="personID" type="text" placeholder="รหัสประชาชน" class="form-control" value= '{{ data["PERSON_ID"] }}'>
+                                                <input id="personID" type="text" placeholder="รหัสประชาชน" class="form-control">
                                             </div>                                            
                                         </div>
                                     </div>
@@ -197,7 +157,7 @@
                                     <div class="col-sm-10">
                                         <div class="row">
                                             <div class="col-sm-7">
-                                                <input id="birthday" type="date" class="form-control" value ='{{ data["BIRTH_DAY"] }}'>
+                                                <input id="birthday" type="date" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -246,7 +206,7 @@
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-7">
-                                                    <input id="passport" type="text" placeholder="passport number" class="form-control" value= '{{ data["PASSPORT_ID"] }}'>
+                                                    <input id="passport" type="text" placeholder="passport number" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -256,7 +216,7 @@
                                                     <label class="form-control-label">Issue Date</label>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <input id="issueDate" type="date" class="form-control" value= '{{ data["ISSUE_DATE"] }}'>
+                                                    <input id="issueDate" type="date" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -266,7 +226,7 @@
                                                     <label class="form-control-label">Expire Date</label>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <input id="expireDate" type="date" class="form-control" value= '{{ data["EXPIRE_DATE"] }}'>
+                                                    <input id="expireDate" type="date" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -280,7 +240,7 @@
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <input id="address" type="text" placeholder="ที่อยู่ปัจจุบัน" class="form-control" value= '{{ data["ADDRESS"] }}'>
+                                                    <input id="address" type="text" placeholder="ที่อยู่ปัจจุบัน" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -290,7 +250,7 @@
                                                     <label class="form-control-label">รหัสไปรณีย์</label>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <input id="postNo" type="text" class="form-control" value= '{{ data["POST_NO"] }}'>
+                                                    <input id="postNo" type="text" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -359,14 +319,6 @@
                     <div class="col-lg-4">
                         <div class="card-header d-flex align-items-center">
                             <h3 class="h4">รูปภาพ</h3>   
-                        </div>
-                    </div>
-                </div>
-                <div class="line"></div>
-                    <div class="form-group row">
-                        <div class="col-sm-2">
-                            <button type="submit" class="btn btn-primary">Save changes</button>
-                            <button type="cancel" class="btn btn-secondary">Cancel</button>
                         </div>
                     </div>
                 </div>

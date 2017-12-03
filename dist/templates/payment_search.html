@@ -32,18 +32,18 @@
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-					<a class="nav-link" href="/">หน้าหลัก <span class="sr-only">(current)</span></a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="lend">หน้าจัดการลูกค้า</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="equipment">Invoice</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="category">Payment</a>
-				</li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">หน้าหลัก <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="search_tour">หน้าจัดการลูกค้า</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="search_invoice">Invoice</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="search_payment">Payment</a>
+                </li>
 			</ul>
                 <!-- <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
@@ -56,7 +56,7 @@
         <div class="container">           
         	<div class="row">
         		<div class="col-6 col-sm-3">
-        			<h3>ค้นหาใบ Invoice</h3>
+        			<h3>ค้นหาใบ Payment</h3>
         		</div>           
         	</div>
         </div>
@@ -68,23 +68,23 @@
             <div class="row">
                 <div class="col-3">
                     <div class="form-group">
-                        <label for="name" class="form-control-label">Start Date</label>
+                        <label for="name" class="form-control-label">Start Date (วันจ่ายเงิน)</label>
                         <input type="date" class="form-control" id="startDate"/>
                     </div>              
                 </div>
                 <div class="col-3">
                     <div class="form-group">
-                        <label for="name" class="form-control-label">End Date</label>
+                        <label for="name" class="form-control-label">End Date (วันจ่ายเงิน)</label>
                         <input type="date" class="form-control" id="endDate"/>
                     </div>              
                 </div>
                 <div class="col-2">
                     <div class="form-group">
-                        <label for="name" class="form-control-label">ประเภทใบ</label>
+                        <label for="name" class="form-control-label">Payment Type</label>
                         <select class="form-control" id="dropdown1">
                             <option value="">All Type</option>
-                            <option value="RT2">RT Type</option>
-                            <option value="RTS2">RTS Type</option>
+                            <option value="ใบกำกับภาษี">ใบกำกับภาษี</option>
+                            <option value="ใบรับเงิน">ใบรับเงิน</option>
                         </select>   
                     </div>              
                 </div>

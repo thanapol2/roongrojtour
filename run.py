@@ -13,19 +13,24 @@ cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 #     return jsonify(rows)
 
 @app.route('/api/search_tour')
-def getTour():
+def searchTour():
     rows = dao.searchTour()
     return render_template("tour_search.html", rows=rows)
 
 @app.route('/api/search_invoice')
-def getInvoice():
+def searchInvoice():
     rows = dao.searchInvoice()
     return render_template("invoice_search.html", rows=rows)
 
 @app.route('/api/search_payment')
-def getPayment():
+def searchPayment():
     rows = dao.searchPayment()
     return render_template("payment_search.html", rows=rows)
+
+@app.route('/api/search_tour/<tourID>')
+def getTour(tourID):
+    data = dao.getTour(tourID)
+    return render_template("tour_detail.html", data=data)
 
 if __name__ == "__main__":
     # reload(sys)

@@ -19,7 +19,7 @@ $(document).ready(function() {
       }else{
         result = false;
       }
-      if (isNaN(min) && isNaN(max) == null) { return true && result; }
+      if (isNaN(min) && isNaN(max)) { return true && result; }
       if (isNaN(min) && startDate <= max) { return true && result;}
       if(isNaN(max) && startDate >= min) {return true && result;}
       if (startDate <= max && startDate >= min) { return true && result; }
