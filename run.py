@@ -1,16 +1,17 @@
-from flask import Flask, render_template,jsonify
+from flask import Flask, render_template,jsonify,request,json
 from flask_cors import CORS
 import  backend.dao as dao
+import backend.config_data as config_data
+
 
 app = Flask(__name__,
             static_folder = "./dist/static",
             template_folder = "./dist/templates")
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
-
-# @app.route('/api/random')
-# def random_number():
-#     rows = dao.getTour()
-#     return jsonify(rows)
+#  Config get data
+NATIONS = config_data.NATIONS
+COUNTRYS = config_data.COUNTRYS
+PROVINCES = config_data.PROVINCES
 
 @app.route('/api/search_tour')
 def searchTour():
@@ -30,9 +31,21 @@ def searchPayment():
 @app.route('/api/search_tour/<tourID>')
 def getTour(tourID):
     data = dao.getTour(tourID)
-    return render_template("tour_detail.html", data=data)
+    return render_template("tour_detail.html", data=data,countrys=COUNTRYS, nations=NATIONS, provinces=PROVINCES)
+
+@app.route('/api/update_tour',methods = ['POST'])
+def createupdate_tour():
+    passport =  request.get_json()
+    # issueDate = request.form['password']
+    print(passport["name_th"])
+    # print(issueDate)
+    return json.dumps({'status':'OK','user':passport})
+
+@app.route('/api/signUp')
+def signUp():
+    return render_template('test.html')
 
 if __name__ == "__main__":
     # reload(sys)
     # sys.setdefaultencoding('utf-8')
-    app.run()
+    app.run(debug=True)

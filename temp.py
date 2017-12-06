@@ -1,4 +1,7 @@
 import backend.dao as dao
 from datetime import datetime
-print(dao.searchTour())
-print (dao.getTour('000000102'))
+import configparser
+import backend.config_data as pro
+
+print(pro.NATIONS)
+print(pro.PROVINCES)

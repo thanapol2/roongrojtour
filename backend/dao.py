@@ -56,8 +56,26 @@ def searchPayment():
     conn.close()
     return rows
 
+def createUpdateTour(data):
+    conn = cx_Oracle.connect('tong', 'tong', 'localhost:1521/XE')
+    cur = conn.cursor()
+    msg = ''
+    try:
+        sql = "insert into table1 (column1) values ('1') "
+        cur.execute(sql)
+        conn.commit()
+    except:
+        conn.rollback()
+        msg = "error in insert operation"
+
+    finally:
+        cur.close()
+        conn.close()
+
+    return msg
 def getTour(tourID):
     conn = cx_Oracle.connect('tong', 'tong', 'localhost:1521/XE')
+    cur = conn.cursor()
     # conn = db_connect.connect()
     result = {}
     sql = "select TOUR_ID									"\
@@ -84,7 +102,6 @@ def getTour(tourID):
     "		, TEL											"\
     "from tour_Master										"\
     "where tour_id =  " + tourID
-    cur = conn.cursor()
     cur.execute(sql)
     rows = cur.fetchall()
     for row in rows:
