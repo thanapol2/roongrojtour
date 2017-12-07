@@ -30,7 +30,8 @@ def searchPayment():
 
 @app.route('/api/search_tour/<tourID>')
 def getTour(tourID):
-    data = dao.getTour(tourID)
+    data = []
+    # data = dao.getTour(tourID)
     return render_template("tour_detail.html", data=data,countrys=COUNTRYS, nations=NATIONS, provinces=PROVINCES)
 
 @app.route('/api/update_tour',methods = ['POST'])
