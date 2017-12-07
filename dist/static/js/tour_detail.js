@@ -26,6 +26,8 @@ function clickSubmit(){
 }
 function changeTittle() {
     var e = document.getElementById("title_th");
-	var title_th = e.options[e.selectedIndex].value;
+    var title_th = e.options[e.selectedIndex].value;
+    // var title_en = document.getElementById('title_en');
+	document.getElementById("title_en").value = "Ms.";
 }
 

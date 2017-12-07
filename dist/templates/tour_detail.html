@@ -5,10 +5,22 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">        
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
+    <!-- Fontastic Custom icon font-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fontastic.css') }}">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/font-awesome/css/font-awesome.min.css') }}">
+    <!-- Google fonts - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.default.css') }}" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="{{ url_for('static',filename='image/icon.png')}}">
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
     <!-- data table style script -->
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
@@ -49,7 +61,6 @@
         </div>
     </nav>
     <!-- ++++++++++++++++++++++end navbar++++++++++++++++++++++ -->
-    <br /><br />
     <div class="content-inner">
         <!-- Page Header-->
         <header class="page-header">
@@ -71,28 +82,29 @@
                 <div class="row">
                     <!-- Left form  -->
                     <div class="col-lg-8">
-                        <div class="card-header d-flex align-items-center">
-                            <div class="col-sm-4">
-                                <h3 class="h4">ข้อมูลพื้นฐาน</h3>
+                        <div class="card">
+                            <div class="card-header d-flex align-items-center">
+                                <div class="col-sm-4">
+                                    <h3 class="h4">Basic Information</h3>
+                                </div>
+                                <div class="col-sm-3">
+                                </div>
+                                <div class="col-sm-2">
+                                    <h3 class="h4">Tour ID : </h3>
+                                </div>
+                                <div class="col-sm-3">
+                                    <h3 class="h4">{{ data["TOUR_ID"] }}</h3>
+                                </div>
                             </div>
-                            <div class="col-sm-3">
-                            </div>
-                            <div class="col-sm-2">
-                                <h3 class="h4">Tour ID : </h3>
-                            </div>
-                            <div class="col-sm-3">
-                                <h3 class="h4">{{ data["TOUR_ID"] }}</h3>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <form class="form-horizontal">
+                            <div class="card-body">
+                              <form>
                                 <!-- ++++++++++++++++++++++TH NAME++++++++++++++++++++++ -->
                                 <div class="form-group row">
                                     <label class="col-sm-2 form-control-label">ชื่อ - นามสกุล</label>
                                     <div class="col-sm-10">
                                         <div class="row">
                                             <div class="col-sm-2 select">
-                                                <select id="title_th" class="form-control" placeholder="select" onchange="changeTittle()">
+                                                <select id="title_th" class="form-control form-control-sm" placeholder="select" onchange="changeTittle()">
                                                     <!-- <option>select</option> -->
                                                     <option value="" disabled selected>คำนำหน้า</option>
                                                     <option value="นาย">นาย</option>
@@ -103,14 +115,13 @@
                                                 </select>
                                             </div>
                                             <div class="col-sm-5">
-                                                <input id="name_th" type="text" placeholder="ชือ (ภาษาไทย)" class="form-control" value= '{{ data["THAI_NAME"] }}' >
+                                                <input id="name_th" type="text" placeholder="ชือ (ภาษาไทย)" class="form-control form-control-sm" value= '{{ data["THAI_NAME"] }}' >
                                             </div>
                                             <div class="col-sm-5">
-                                                <input id="surname_th" type="text" placeholder="นามสกุล (ภาษาไทย)" class="form-control" value= '{{ data["THAI_SURNAME"] }}'>
+                                                <input id="surname_th" type="text" placeholder="นามสกุล (ภาษาไทย)" class="form-control form-control-sm" value= '{{ data["THAI_SURNAME"] }}'>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="line"></div>
                                 </div>
                                 <!-- ++++++++++++++++++++++TH NAME++++++++++++++++++++++ -->
                                 <!-- ++++++++++++++++++++++EH NAME++++++++++++++++++++++ -->
@@ -119,7 +130,7 @@
                                     <div class="col-sm-10">
                                         <div class="row">
                                             <div class="col-sm-2 select">
-                                                <select id="title_en" disabled="" class="form-control">
+                                                <select id="title_en" disabled="" class="form-control form-control-sm">
                                                     <option value="" disabled selected>Select</option>
                                                     <option value="Mr.">Mr.</option>
                                                     <option value="Mrs.">Mrs.</option>
@@ -128,14 +139,13 @@
                                                 </select>
                                             </div>
                                             <div class="col-sm-5">
-                                                <input id="name_en" type="text" placeholder="Name (English)" class="form-control" value= '{{ data["ENG_NAME"] }}'>
+                                                <input id="name_en" type="text" placeholder="Name (English)" class="form-control form-control-sm" value= '{{ data["ENG_NAME"] }}'>
                                             </div>
                                             <div class="col-sm-5">
-                                                <input id="surname_en" type="text" placeholder="Surname (English)" class="form-control" value= '{{ data["ENG_SURNAME"] }}'>
+                                                <input id="surname_en" type="text" placeholder="Surname (English)" class="form-control form-control-sm" value= '{{ data["ENG_SURNAME"] }}'>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="line"></div>
                                 </div>
                                 <!-- ++++++++++++++++++++++EH NAME++++++++++++++++++++++ -->
                                 <!-- ++++++++++++++++++++++ Gender +++++++++++++++++++++ -->
@@ -154,7 +164,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="line"></div>
                                 <!-- ++++++++++++++++++++++ Gender +++++++++++++++++++++ -->
                                 <!-- ++++++++++++++++++++++ EMAIL ++++++++++++++++++++++ -->
                                 <div class="form-group row">
@@ -162,12 +171,11 @@
                                     <div class="col-sm-10">
                                         <div class="row">
                                             <div class="col-sm-7">
-                                                <input id="email" type="email" placeholder="EMAIL" class="form-control" value= '{{ data["EMAIL"] }}'>
+                                                <input id="email" type="email" placeholder="EMAIL" class="form-control form-control-sm" value= '{{ data["EMAIL"] }}'>
                                             </div>                                            
                                         </div>
                                     </div>
                                 </div>
-                                <div class="line"></div>
                                 <!-- ++++++++++++++++++++++ EMAIL ++++++++++++++++++++++ -->
                                 <!-- ++++++++++++++++++++++ TEL ++++++++++++++++++++++ -->
                                 <div class="form-group row">
@@ -175,12 +183,11 @@
                                     <div class="col-sm-10">
                                         <div class="row">
                                             <div class="col-sm-7">
-                                                <input id="tel" type="text" placeholder="เบอร์ติดต่อ" class="form-control" value= '{{ data["TEL"] }}'>
+                                                <input id="tel" type="text" placeholder="เบอร์ติดต่อ" class="form-control form-control-sm" value= '{{ data["TEL"] }}'>
                                             </div>                                            
                                         </div>
                                     </div>
                                 </div>
-                                <div class="line"></div>
                                 <!-- ++++++++++++++++++++++ TEL ++++++++++++++++++++++ -->
                                 <!-- ++++++++++++++++++++++ Person ID ++++++++++++++++++++++ -->
                                 <div class="form-group row">
@@ -188,12 +195,11 @@
                                     <div class="col-sm-10">
                                         <div class="row">
                                             <div class="col-sm-7">
-                                                <input id="personID" type="text" placeholder="รหัสประชาชน" class="form-control" value= '{{ data["PERSON_ID"] }}'>
+                                                <input id="personID" type="text" placeholder="รหัสประชาชน" class="form-control form-control-sm" value= '{{ data["PERSON_ID"] }}'>
                                             </div>                                            
                                         </div>
                                     </div>
                                 </div>
-                                <div class="line"></div>
                                 <!-- ++++++++++++++++++++++Person ID++++++++++++++++++++++ -->
                                 <!-- ++++++++++++++++++++++ birth day ++++++++++++++++++++++ -->
                                 <div class="form-group row">
@@ -201,12 +207,11 @@
                                     <div class="col-sm-10">
                                         <div class="row">
                                             <div class="col-sm-7">
-                                                <input id="birthday" type="date" class="form-control" value ='{{ data["BIRTH_DAY"] }}'>
+                                                <input id="birthday" type="date" class="form-control form-control-sm" value ='{{ data["BIRTH_DAY"] }}'>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="line"></div>
                                 <!-- ++++++++++++++++++++++ birth day++++++++++++++++++++++ -->
                                 <!-- ++++++++++++++++++++++ Country ++++++++++++++++++++++ -->
                                 <div class="form-group row">
@@ -214,7 +219,7 @@
                                     <div class="col-sm-10">
                                         <div class="row">
                                             <div class="col-sm-7 select">
-                                                <select name="country" class="form-control">
+                                                <select name="country" class="form-control form-control-sm">
                                                     <option value="" disabled selected>Select</option>
                                                     {% for country in countrys %}
                                                     <option value={{country}}>{{country}}</option>
@@ -224,7 +229,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="line"></div>
                                 <!-- ++++++++++++++++++++++ Country ++++++++++++++++++++++ -->
                                 <!-- ++++++++++++++++++++++ Nation ++++++++++++++++++++++ -->
                                 <div class="form-group row">
@@ -232,7 +236,7 @@
                                     <div class="col-sm-10">
                                         <div class="row">
                                             <div class="col-sm-7 select">
-                                                <select name="nationality" class="form-control">
+                                                <select name="nationality" class="form-control form-control-sm">
                                                     <option value="" disabled selected>Select</option>
                                                     {% for nation in nations %}
                                                     <option value={{nation}}>{{nation}}</option>
@@ -250,7 +254,7 @@
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-7">
-                                                    <input id="passport" type="text" placeholder="passport number" class="form-control" value= '{{ data["PASSPORT_ID"] }}'>
+                                                    <input id="passport" type="text" placeholder="passport number" class="form-control form-control-sm" value= '{{ data["PASSPORT_ID"] }}'>
                                                 </div>
                                             </div>
                                         </div>
@@ -260,7 +264,7 @@
                                                     <label class="form-control-label">Issue Date</label>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <input id="issueDate" type="date" class="form-control" value= '{{ data["ISSUE_DATE"] }}'>
+                                                    <input id="issueDate" type="date" class="form-control form-control-sm" value= '{{ data["ISSUE_DATE"] }}'>
                                                 </div>
                                             </div>
                                         </div>
@@ -270,7 +274,7 @@
                                                     <label class="form-control-label">Expire Date</label>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <input id="expireDate" type="date" class="form-control" value= '{{ data["EXPIRE_DATE"] }}'>
+                                                    <input id="expireDate" type="date" class="form-control form-control-sm" value= '{{ data["EXPIRE_DATE"] }}'>
                                                 </div>
                                             </div>
                                         </div>
@@ -284,7 +288,7 @@
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <input id="address" type="text" placeholder="ที่อยู่ปัจจุบัน" class="form-control" value= '{{ data["ADDRESS"] }}'>
+                                                    <input id="address" type="text" placeholder="ที่อยู่ปัจจุบัน" class="form-control form-control-sm" value= '{{ data["ADDRESS"] }}'>
                                                 </div>
                                             </div>
                                         </div>
@@ -294,7 +298,7 @@
                                                     <label class="form-control-label">รหัสไปรณีย์</label>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <input id="postNo" type="text" class="form-control" value= '{{ data["POST_NO"] }}'>
+                                                    <input id="postNo" type="text" class="form-control form-control-sm" value= '{{ data["POST_NO"] }}'>
                                                 </div>
                                             </div>
                                         </div>
@@ -304,7 +308,7 @@
                                                     <label class="form-control-label">จังหวัด</label>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <select id="province" class="form-control">
+                                                    <select id="province" class="form-control form-control-sm">
                                                         <option value="" disabled selected>Select</option>
                                                         {% for province in provinces %}
                                                         <option value={{province}}>{{province}}</option>
@@ -321,61 +325,97 @@
                                     <label class="col-sm-2 form-control-label">ประเภทอาหาร</label>
                                     <div class="col-sm-10">
                                         <div class="row">
-                                            <div class="col-sm-2">
-                                                <input id="no_pig" type="checkbox" value="no_pig"> ไม่ทานหมู
+                                            <div class="col-sm-6">
+                                                <div>
+                                                    <input id="no_pig" type="checkbox" value="no_pig" class="checkbox-template">
+                                                    <label for="no_pig">ไม่ทานหมู</label>
+                                                </div>
+                                                <div>
+                                                    <input id="no_meat" type="checkbox" value="no_meat" class="checkbox-template">
+                                                    <label for="no_meat">ไม่ทานเนื้อ</label>
+                                                </div>
+                                                <div>
+                                                    <input id="no_chicken" type="checkbox" value="no_chicken" class="checkbox-template">
+                                                    <label for="no_chicken">ไม่ทานไก่</label>
+                                                </div>
+                                                <div>
+                                                    <input id="halal" type="checkbox" value="halal" class="checkbox-template">
+                                                    <label for="halal">ฮาลาน</label>
+                                                </div>  
+                                                <div>
+                                                    <input id="mangsa" type="checkbox" value="mangsa" class="checkbox-template">
+                                                    <label for="mangsa">มังสวิรัต</label>
+                                                </div>              
                                             </div>
-                                            <div class="col-sm-2">
-                                                <input id="no_meat" type="checkbox" value="no_meat"> ไม่ทานเนื้อ
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <input id="no_chicken" type="checkbox" value="no_chicken"> ไม่ทานไก่
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <input id="halal" type="checkbox" value="halal"> ฮาลาน
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <input id="mangsa" type="checkbox" value="mangsa"> มังสวิรัต
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-2">
-                                                <input id="vegetarian" type="checkbox" value="vegetarian"> vegetarian
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <input id="islam" type="checkbox" value="islam"> อิสลาม (ไม่เคร่งมาก)
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <input id="no_seafood" type="checkbox" value="no_seafood"> ไม่ทาน Seafood
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <input id="no_shrimp" type="checkbox" value="no_shrimp"> ไม่ทานกุ้ง
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <input id="no_fish" type="checkbox" value="no_fish"> ไม่ทานปลา
+                                            <div>
+                                                <div>
+                                                    <input id="vegetarian" type="checkbox" value="vegetarian" class="checkbox-template">
+                                                    <label for="vegetarian">vegetarian</label>
+                                                </div>
+                                                <div>
+                                                    <input id="islam" type="checkbox" value="islam" class="checkbox-template">
+                                                    <label for="islam">อิสลาม (ไม่เคร่งมาก)</label>
+                                                </div>
+                                                <div>
+                                                    <input id="no_seafood" type="checkbox" value="no_seafood" class="checkbox-template">
+                                                    <label for="no_seafood">ไม่ทาน Seafood</label>
+                                                </div>
+                                                <div>
+                                                    <input id="no_shrimp" type="checkbox" value="no_shrimp" class="checkbox-template">
+                                                    <label for="no_shrimp">ไม่ทานกุ้ง</label>
+                                                </div>  
+                                                <div>
+                                                    <input id="no_fish" type="checkbox" value="no_fish" class="checkbox-template">
+                                                    <label for="no_fish">ไม่ทานปลา</label>
+                                                </div>  
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <!--  Eating -->
                             </form>
+                            <div class="form-group row">
+                                <div class="col-sm-4 offset-sm-3">
+                                    <button type="submit" class="btn btn-primary" id="submit" onclick="clickSubmit()">Save changes</button>
+                                    <button type="cancel" class="btn btn-secondary">Cancel</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                </div>
+                <!-- Rigth column -->
+                <div class="col-lg-4">
+                    <div class="card">
                         <div class="card-header d-flex align-items-center">
                             <h3 class="h4">รูปภาพ</h3>   
                         </div>
-                    </div>
-                </div>
-                <div class="line"></div>
-                <div class="form-group row">
-                    <div class="col-sm-2">
-                        <button type="submit" class="btn btn-primary" id="submit" onclick="clickSubmit()">Save changes</button>
-                        <button type="cancel" class="btn btn-secondary">Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>          
-</div>
+                        <div class="card-body">
+                            <form>
+                                <div class="form-group row">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                             <div class="input-group col-md-12">
+                                                <input type="text" class="form-control"><span class="input-group-btn">
+                                                    <button id="browse" type="button" class="btn btn-primary">Browse..</button></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                             <div class="input-group col-md-12">
+                                                <div class="image has-shadow"><img src="{{ url_for('static',filename='band.png')}}" alt="..." class="img-fluid"></div>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="line"> </div>
+                               </div>
+                           </form>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </section>
+   </div>        
 </body>
 </html>
