@@ -34,6 +34,12 @@ def getTour(tourID):
     data = dao.getTour(tourID)
     return render_template("tour_detail.html", data=data,countrys=COUNTRYS, nations=NATIONS, provinces=PROVINCES)
 
+@app.route('/api/temp/<tourID>')
+def temp(tourID):
+    data = []
+    # data = dao.getTour(tourID)
+    return render_template("company_detail.html", data=data)
+
 @app.route('/api/update_tour',methods = ['POST'])
 def createupdate_tour():
     passport =  request.get_json()
