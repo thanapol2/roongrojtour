@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Roongroj Tour</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
+    <!-- Fontastic Custom icon font-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fontastic.css') }}">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/font-awesome/css/font-awesome.min.css') }}">
+    <!-- Google fonts - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.default.css') }}" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="{{ url_for('static',filename='image/icon.png')}}">
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <!-- data table style script -->
+
+    <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>  -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/invoice_detail.js') }}"></script>
+
+
+</head>
+<body>
+	<!-- ++++++++++++++++++++++navbar++++++++++++++++++++++ -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="Default.aspx">
+			<img src="{{ url_for('static',filename="band.png")}}" alt="Logo" width="45" height="30" />
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">หน้าหลัก <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="search_tour">หน้าจัดการลูกค้า</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="search_invoice">Invoice</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="search_payment">Payment</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- ++++++++++++++++++++++end navbar++++++++++++++++++++++ -->
+    <div class="content-inner">
+        <!-- Page Header-->
+        <header class="page-header">
+            <div class="container-fluid">
+                <h2 class="no-margin-bottom">Forms</h2>
+            </div>
+        </header>
+        <!-- Breadcrumb-->
+        <div class="breadcrumb-holder container-fluid">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active"><a href="/api/search_invoice">Invoice Search</a></li>
+                <li class="breadcrumb-item active">Invoice Detail</li>
+            </ul>
+        </div>
+        <section class="forms"> 
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header d-flex align-items-center">
+                                <div class="col-sm-4">
+                                    <h3 class="h4">Invoice Detail</h3>
+                                </div>
+                                <div class="col-sm-2">
+                                </div>
+                                <div class="col-sm-2">
+                                    <h3 class="h4">Invoice No : </h3>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h3 class="h4">{{ data["INVOICE_NO"] }}</h3>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="form-group row">
+
+                                    </div>
+                                    <div class="line"></div>
+                                    <div class="form-group row">
+                                        <!-- Invoice Head detail -->
+                                        <label class="col-sm-2 form-control-label">Sale</label>
+                                        <div class="col-sm-10">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class= "col-md-8">
+                                                        <input id="saleName" type="text" class="form-control form-control-sm" placeholder="ชื่อ-นามสกุล sales" value= '{{ data["SALES"] }}'>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <label class="col-sm-2 form-control-label">Issue Date</label>
+                                        <div class="col-sm-10">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-5">
+                                                        <input id="issueDate" type="date" class="form-control form-control-sm" value= '{{ data["ISSUE_DATE"] }}'>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input id="due" type="number" class="form-control form-control-sm" value= '{{ data["DUE"] }}'>
+                                                        <span class="help-block-none">ระยะเวลา due day</span>
+                                                    </div>                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <label class="col-sm-2 form-control-label">Ref No</label>
+                                        <div class="col-sm-10">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class= "col-md-8">
+                                                        <input id="ref" type="text" class="form-control form-control-sm" placeholder="ref no ที่เกี่ยวข้อง" value= '{{ data["REF"] }}'>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <label class="col-sm-2 form-control-label">Subject</label>
+                                        <div class="col-sm-10">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class= "col-md-8">
+                                                        <input id="subject" type="text" class="form-control form-control-sm" placeholder="subject" value= '{{ data["SUBJECT"] }}'>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="line"></div>
+                                        <!-- Customer Detail -->
+                                        <label class="col-sm-2 form-control-label">ข้อมูลลูกค้า</label>
+                                        <div class="col-sm-10">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="form-control-label">Tour ID</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input id="tourID" type="text" class="form-control form-control-sm" disabled="" value= '{{ data["TOUR_ID"] }}'>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" id="searchCustomer">ค้นหาลูกค้า</button>
+                                                        <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" id="clear">clear & unlock</button>
+                                                    </div>    
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="form-control-label">ชื่อลูกค้า</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input id="tourName" type="text" class="form-control form-control-sm" placeholder="Customer Name" value= '{{ data["TOUR_NAME"] }}'>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="form-control-label">TAX ID</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input id="taxID" type="text" class="form-control form-control-sm" placeholder="เลขผู้เสียภาษี" value= '{{ data["TAX_ID"] }}'>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">    
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="form-control-label">TEL</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input id="tel" type="text" class="form-control form-control-sm" placeholder="เบอร์โทร" value= '{{ data["TEL"] }}'>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="form-control-label">EMAIL</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input id="email" type="email" class="form-control form-control-sm" placeholder="EMAIL" value= '{{ data["EMAIL"] }}'>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="form-control-label">Attention</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input id="attention" type="text" class="form-control form-control-sm" placeholder="attention" value= '{{ data["ATTENTION"] }}'>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="form-control-label">Address</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input id="ADDRESS" type="text" class="form-control form-control-sm" placeholder="attention" value= '{{ data["ADDRESS"] }}'>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="line"></div>
+                                        <!-- Invoice Detail -->
+                                        <label class="col-sm-2 form-control-label">Summary</label>                                  
+                                        <div class="col-sm-10">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="form-control-label">Vat</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="input-group">
+                                                            <input id="vat" type="text" class="form-control form-control-sm" disabled="" placeholder="0.00" value= '{{ data["VAT"] }}'><span class="input-group-addon">Bath</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="form-control-label">Address</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="input-group">
+                                                            <input id="sum" type="text" class="form-control form-control-sm" disabled="" placeholder="0.00" value= '{{ data["SUM"] }}'><span class="input-group-addon">Bath</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>                        
+                </div>
+                <!-- Left form  -->
+
+            </div>
+        </div>
+    </section>
+</div>
+
+</body>
+</html>

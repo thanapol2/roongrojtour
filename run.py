@@ -12,6 +12,7 @@ cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 NATIONS = config_data.NATIONS
 COUNTRYS = config_data.COUNTRYS
 PROVINCES = config_data.PROVINCES
+COMPANY_TYPES = config_data.COMPANY_TYPES
 
 @app.route('/api/search_tour')
 def searchTour():
@@ -29,10 +30,14 @@ def searchPayment():
     return render_template("payment_search.html", rows=rows)
 
 @app.route('/api/search_tour/<tourID>')
-def getTour(tourID):
+def getMember(tourID):
     # data = []
-    data = dao.getTour(tourID)
-    return render_template("tour_detail.html", data=data,countrys=COUNTRYS, nations=NATIONS, provinces=PROVINCES)
+    if("C" in tourID):
+        data = dao.getCompanyDetail(tourID)
+        return render_template("company_detail.html", data=data, provinces=PROVINCES,types=COMPANY_TYPES)
+    else:
+        data = dao.getTourDetail(tourID)
+        return render_template("tour_detail.html", data=data,countrys=COUNTRYS, nations=NATIONS, provinces=PROVINCES)
 
 @app.route('/api/temp/<tourID>')
 def temp(tourID):
@@ -47,6 +52,11 @@ def createupdate_tour():
     print(passport["name_th"])
     # print(issueDate)
     return json.dumps({'status':'OK','user':passport})
+
+@app.route('/api/search_invoice/<invoiceNo>')
+def getPayment(invoiceNo):
+    data = []
+    return render_template("invoice_detail.html",data=data)
 
 @app.route('/api/signUp')
 def signUp():

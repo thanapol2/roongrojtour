@@ -5,6 +5,7 @@ import configparser
 PROVINCES = []
 NATIONS = []
 COUNTRYS = []
+COMPANY_TYPES = []
 
 class province:
     with codecs.open('./backend/data/export.json', 'r', 'utf-8-sig') as data_file:
@@ -20,5 +21,7 @@ class province:
         NATIONS.append(row)
     for row in config['TOUR_DETAIL']['COUNTRY'].split(','):
         COUNTRYS.append(row)
+    for row in config['TOUR_DETAIL']['COMPANY_TYPE'].split(','):
+        COMPANY_TYPES.append(row)
 
 

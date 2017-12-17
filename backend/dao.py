@@ -1,12 +1,19 @@
+import configparser
 import cx_Oracle
-# from sqlalchemy import create_engine
 import os
 
 # db_connect = create_engine('oracle://tong:tong@127.0.0.1:1521/xe',coerce_to_unicode=True)
 os.environ["NLS_LANG"] = ".UTF8"
+config = configparser.ConfigParser()
+config.sections()
+config.read('./backend/data/database.ini')
+USER = config['CONFIG']['USER']
+PASS = config['CONFIG']['PASS']
+DB_URL = config['CONFIG']['DB_URL']
+
 
 def searchTour():
-    conn = cx_Oracle.connect('tong', 'tong', 'localhost:1521/XE')
+    conn = cx_Oracle.connect(USER, PASS, DB_URL)
     # conn = db_connect.connect()
     sql = "SELECT 	ID,				" \
           "		NAME,			    " \
@@ -21,7 +28,7 @@ def searchTour():
     return rows
 
 def searchInvoice():
-    conn = cx_Oracle.connect('tong', 'tong', 'localhost:1521/XE')
+    conn = cx_Oracle.connect(USER, PASS, DB_URL)
     # conn = db_connect.connect()
     sql = "select INVOICE_NO,			                        " \
           "		  CUSTOMER_NAME,		                        " \
@@ -38,7 +45,7 @@ def searchInvoice():
     return rows
 
 def searchPayment():
-    conn = cx_Oracle.connect('tong', 'tong', 'localhost:1521/XE')
+    conn = cx_Oracle.connect(USER, PASS, DB_URL)
     # conn = db_connect.connect()
     sql = "select PAYMENT_TYPE,									"\
 		"	PAYMENT_NO,											"\
@@ -57,7 +64,7 @@ def searchPayment():
     return rows
 
 def createUpdateTour(data):
-    conn = cx_Oracle.connect('tong', 'tong', 'localhost:1521/XE')
+    conn = cx_Oracle.connect(USER, PASS, DB_URL)
     cur = conn.cursor()
     msg = ''
     try:
@@ -73,8 +80,8 @@ def createUpdateTour(data):
         conn.close()
 
     return msg
-def getTour(tourID):
-    conn = cx_Oracle.connect('tong', 'tong', 'localhost:1521/XE')
+def getTourDetail(tourID):
+    conn = cx_Oracle.connect(USER, PASS, DB_URL)
     cur = conn.cursor()
     # conn = db_connect.connect()
     result = {}
@@ -101,7 +108,7 @@ def getTour(tourID):
     "		, POST_NO 										"\
     "		, TEL											"\
     "from tour_Master										"\
-    "where tour_id =  " + tourID
+    "where tour_id =  '" + tourID +"'"
     cur.execute(sql)
     rows = cur.fetchall()
     for row in rows:
@@ -132,4 +139,60 @@ def getTour(tourID):
     return result
 
 
+def getCompanyDetail(tourID):
+    conn = cx_Oracle.connect(USER, PASS, DB_URL)
+    cur = conn.cursor()
+    # conn = db_connect.connect()
+    result = {}
+    sql = "select COMPANY_ID								"\
+    "		, THAI_NAME 									"\
+    "		, ENG_NAME	 									"\
+    "		, ADDRESS 										"\
+    "		, PROVINCE 										"\
+    "		, POST_NO 										"\
+    "		, TEL_NO										"\
+    "		, EMAIL											"\
+    "		, TAX_ID										"\
+    "		, COMPANY_TYPE									"\
+    "		, REMARK										"\
+    "FROM  COMPANY_Master		                            "\
+    "where company_id =  '" + tourID +"'"
+    cur.execute(sql)
+    rows = cur.fetchall()
+    for row in rows:
+        result['COMPANY_ID'] = row[0]
+        result['THAI_NAME'] = row[1]
+        result['ENG_NAME'] = row[2]
+        result['ADDRESS'] = row[3]
+        result['PROVINCE'] = row[4]
+        result['POST_NO'] = row[5]
+        result['TEL_NO'] = row[6]
+        result['EMAIL'] = row[7]
+        result['TAX_ID'] = row[8]
+        result['COMPANY_TYPE'] = row[9]
+        result['REMARK'] = row[10]
+    cur.close()
+    conn.close()
+    return result
 
+def getCompanyMeeting(tourID):
+    conn = cx_Oracle.connect(USER, PASS, DB_URL)
+    cur = conn.cursor()
+    sql = "select m.SEQ_NO									"\
+    "		, m.company_id									"\
+    "		, m.Contact_Day									"\
+    "		, m.Detail	 									"\
+    "		, m.CONTACT_NAME								"\
+    "		, m.Phone										"\
+    "		, s.TH_NAME || ' ' || s.TH_SURNAME name			"\
+    "FROM  meeting_log m	                                "\
+    "inner join sales s		                                "\
+    "on s.SALES_ID = m.SALE_ID								"\
+    "where m.company_id =  '" + tourID + "'					"\
+    "	  AND m.STATUS = 'Y'								"
+    cur = conn.cursor()
+    cur.execute(sql)
+    rows = cur.fetchall()
+    cur.close()
+    conn.close()
+    return rows

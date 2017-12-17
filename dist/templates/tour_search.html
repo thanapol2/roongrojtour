@@ -5,7 +5,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
-        <!-- Bootstrap CSS-->
+    <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
     <!-- Fontastic Custom icon font-->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/fontastic.css') }}">
@@ -20,27 +20,16 @@
     <!-- Favicon-->
     <link rel="shortcut icon" href="{{ url_for('static',filename='image/icon.png')}}">
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">        
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">        
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 
-	<!-- data table style script -->
-	<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.css">
-
+    <!-- data table style script -->
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
 
     <!-- Javascript files-->
-    <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
-    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
-<!--     <script type="text/javascript" src="{{ url_for('static', filename='vendor/popper.js/umd/popper.min.js') }}"> </script>
-    <script type="text/javascript" src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='vendor/jquery.cookie/jquery.cookie.js') }}"> </script>
-    <script type="text/javascript" src="{{ url_for('static', filename='vendor/jquery-validation/jquery.validate.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/front.js') }}"></script> -->
-
     <script type="text/javascript" src="{{ url_for('static', filename='js/tour_search.js') }}"></script>
 
 </head>
@@ -69,54 +58,60 @@
                     <a class="nav-link" href="search_payment">Payment</a>
                 </li>
             </ul>
-            </div>
-        </nav>
-        <!-- ++++++++++++++++++++++end navbar++++++++++++++++++++++ -->
-        <br /><br />
-
-        <div class="container">           
-        	<div class="row">
-        		<div class="col-6 col-sm-3">
-        			<h3>ค้นหาลูกค้า</h3>
-        		</div>           
-        	</div>
         </div>
+    </nav>
+    <!-- ++++++++++++++++++++++end navbar++++++++++++++++++++++ -->
+    <br /><br />
 
-        <br />
-        	<hr />
-        	<div class="container">
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label for="name" class="form-control-label">ประเภทของลูกค้า:</label>
-                        <select class="form-control" id="dropdown1">
-                            <option value="">All member</option>
-                            <option value="tourmember">Tourmember</option>
-                            <option value="Company">Company</option>
-                        </select> 
-                    </div>              
-                </div>
-                <div class="col-sm-10">
-                </div>       	      
-                <table id="example" class="table table-striped table-bordered table-responsive table-hover" cellspacing="0" width="100%">
-                    <thead>
-                        <th>Tour_id</th>
-                        <th>Name - Surname(TH)</th>
-                        <th>Name - Surname(EN)</th>
-                        <th>Type</th>
-                        <th>View</th>
-                    </thead>
+    <div class="container">           
+       <div class="row">
+          <div class="col-6 col-sm-3">
+             <h3>ค้นหาลูกค้า</h3>
+         </div>           
+     </div>
+ </div>
 
-                    {% for row in rows %}
-                    <tr>
-                        <td>{{row[0]}}</td>
-                        <td>{{row[1]}}</td>
-                        <td>{{row[2]}}</td>
-                        <td>{{row[3]}}</td>
-                        <td></td>
-                    </tr>
-                    {% endfor %}
-                </table>             
+ <br />
+ <hr />
+ <div class="container">
+    <div class="col-sm-12">
+        <div class="form-group row">
+            <label class="col-sm-2 form-control-label">ประเภทของลูกค้า:</label>
+            <div class="col-md-4">
+                <select class="form-control-sm" id="dropdown1">
+                    <option value="">All member</option>
+                    <option value="tourmember">Tourmember</option>
+                    <option value="Company">Company</option>
+                    <option value="Hotel">Hotel</option>
+                    <option value="Show">Show</option>
+                    <option value="Other">Other</option>
+                    <option value="None">ไม่ได้เลือก Type</option>
+                </select> 
             </div>
+        </div>              
+    </div>
+    <div class="col-sm-10">
+    </div>       	      
+    <table id="example" class="table table-striped table-bordered table-responsive table-hover" cellspacing="0" width="100%">
+        <thead>
+            <th>Tour_id</th>
+            <th>Name - Surname(TH)</th>
+            <th>Name - Surname(EN)</th>
+            <th>Type</th>
+            <th>View</th>
+        </thead>
+
+        {% for row in rows %}
+        <tr>
+            <td>{{row[0]}}</td>
+            <td>{{row[1]}}</td>
+            <td>{{row[2]}}</td>
+            <td>{{row[3]}}</td>
+            <td></td>
+        </tr>
+        {% endfor %}
+    </table>             
+</div>
 
 <!--         	<div class="modal fade" id="myModal">
         		<div class="modal-dialog">
