@@ -196,3 +196,23 @@ def getCompanyMeeting(tourID):
     cur.close()
     conn.close()
     return rows
+
+def getPaymentType():
+    conn = cx_Oracle.connect(USER, PASS, DB_URL)
+    cur = conn.cursor()
+    sql = "select PAYMENT_TYPE          " \
+          "       ,NAME                 " \
+          "from payment_type            "
+    cur = conn.cursor()
+    cur.execute(sql)
+    list = cur.fetchall()
+    cur.close()
+    conn.close()
+
+    rows = []
+    for temp in list:
+        row = {}
+        row['VALUE'] = temp[0]
+        row['PAYMENT_NAME'] = temp[1]
+        rows.append(row)
+    return rows

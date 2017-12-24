@@ -3,4 +3,4 @@ from datetime import datetime
 import configparser
 import backend.config_data as pro
 
-print (dao.getCompanyDetail("C000000121"))
+print(dao.getPaymentType())

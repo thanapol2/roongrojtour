@@ -1,6 +1,6 @@
 from flask import Flask, render_template,jsonify,request,json
 from flask_cors import CORS
-import  backend.dao as dao
+import backend.dao as dao
 import backend.config_data as config_data
 
 
@@ -9,10 +9,13 @@ app = Flask(__name__,
             template_folder = "./dist/templates")
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 #  Config get data
-NATIONS = config_data.NATIONS
-COUNTRYS = config_data.COUNTRYS
-PROVINCES = config_data.PROVINCES
-COMPANY_TYPES = config_data.COMPANY_TYPES
+config = config_data.config_data()
+NATIONS = config.NATIONS
+COUNTRYS = config.COUNTRYS
+PROVINCES = config.PROVINCES
+COMPANY_TYPES = config.COMPANY_TYPES
+BANKS = config.BANKS
+PAYMENT_TYPES = config.PAYMENT_TYPES
 
 @app.route('/api/search_tour')
 def searchTour():
@@ -54,9 +57,15 @@ def createupdate_tour():
     return json.dumps({'status':'OK','user':passport})
 
 @app.route('/api/search_invoice/<invoiceNo>')
-def getPayment(invoiceNo):
+def getInvoice(invoiceNo):
     data = []
     return render_template("invoice_detail.html",data=data)
+
+@app.route('/api/search_payment/<paymentNo>')
+def getPayment(paymentNo):
+    data = []
+    return render_template("payment_detail.html",data=data,banks=BANKS,paymentTypes=PAYMENT_TYPES)
+
 
 @app.route('/api/signUp')
 def signUp():

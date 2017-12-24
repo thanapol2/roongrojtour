@@ -1,6 +1,23 @@
 
 $(document).ready(function() {
-	var table = $('#example').DataTable();
+	var table = $('#example').DataTable({
+     "columnDefs": [ {
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<button>View/Edit</button>"
+        } ,
+        {
+         'targets': 0,
+         'searchable': false,
+         'orderable': false,
+         'width': '1%',
+         'className': 'dt-body-center',
+         'render': function (data, type, full, meta){
+             return '<input type="checkbox">';
+         }
+      }],
+      "order": [[ 1, 'asc' ]]
+  });
   $('#dropdown1').on('change', function () {
     table.draw();
   } );
@@ -29,3 +46,5 @@ $(document).ready(function() {
 
   // Event listener to the two range filtering inputs to redraw on input
 });
+
+
