@@ -93,340 +93,271 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                              <form>
-                                <!-- ++++++++++++++++++++++TH NAME++++++++++++++++++++++ -->
-                                <div class="form-group row">
-                                    <label class="col-sm-2 form-control-label">ชื่อ - นามสกุล</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-sm-2 select">
-                                                <select id="title_th" class="form-control form-control-sm" placeholder="select" onchange="changeTittle()">
-                                                    <!-- <option>select</option> -->
-                                                    <option value="" disabled selected>คำนำหน้า</option>
-                                                    <option value="นาย">นาย</option>
-                                                    <option value="นาง">นาง</option>
-                                                    <option value="นางสาว">นางสาว</option>
-                                                    <option value="เด็กหญิง">เด็กหญิง</option>
-                                                    <option value="เด็กชาย">เด็กชาย</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-5">
-                                                <input id="name_th" type="text" placeholder="ชือ (ภาษาไทย)" class="form-control form-control-sm" value= '{{ data["THAI_NAME"] }}' >
-                                            </div>
-                                            <div class="col-sm-5">
-                                                <input id="surname_th" type="text" placeholder="นามสกุล (ภาษาไทย)" class="form-control form-control-sm" value= '{{ data["THAI_SURNAME"] }}'>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- ++++++++++++++++++++++TH NAME++++++++++++++++++++++ -->
-                                <!-- ++++++++++++++++++++++EH NAME++++++++++++++++++++++ -->
-                                <div class="form-group row">
-                                    <label class="col-sm-2 form-control-label">Name - Surname</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-sm-2 select">
-                                                <select id="title_en" disabled="" class="form-control form-control-sm">
-                                                    <option value="" disabled selected>Select</option>
-                                                    <option value="Mr.">Mr.</option>
-                                                    <option value="Mrs.">Mrs.</option>
-                                                    <option value="Ms.">Ms.</option>
-                                                    <option value="Mstr.">Mstr.</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-5">
-                                                <input id="name_en" type="text" placeholder="Name (English)" class="form-control form-control-sm" value= '{{ data["ENG_NAME"] }}'>
-                                            </div>
-                                            <div class="col-sm-5">
-                                                <input id="surname_en" type="text" placeholder="Surname (English)" class="form-control form-control-sm" value= '{{ data["ENG_SURNAME"] }}'>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- ++++++++++++++++++++++EH NAME++++++++++++++++++++++ -->
-                                <!-- ++++++++++++++++++++++ Gender +++++++++++++++++++++ -->
-                                <div class="form-group row">
-                                    <label class="col-sm-2 form-control-label">เพศ</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-sm-2">
-                                                <input id="male" type="radio" checked="" value="M" name="optionsRadios">
-                                                <label for="optionsRadios1">Male</label>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <input id="female" type="radio" value="F" name="optionsRadios">
-                                                <label for="optionsRadios2">Female</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- ++++++++++++++++++++++ Gender +++++++++++++++++++++ -->
-                                <!-- ++++++++++++++++++++++ EMAIL ++++++++++++++++++++++ -->
-                                <div class="form-group row">
-                                    <label class="col-sm-2 form-control-label">EMAIL</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-sm-7">
-                                                <input id="email" type="email" placeholder="EMAIL" class="form-control form-control-sm" value= '{{ data["EMAIL"] }}'>
-                                            </div>                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- ++++++++++++++++++++++ EMAIL ++++++++++++++++++++++ -->
-                                <!-- ++++++++++++++++++++++ TEL ++++++++++++++++++++++ -->
-                                <div class="form-group row">
-                                    <label class="col-sm-2 form-control-label">เบอร์ติดต่อ</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-sm-7">
-                                                <input id="tel" type="text" placeholder="เบอร์ติดต่อ" class="form-control form-control-sm" value= '{{ data["TEL"] }}'>
-                                            </div>                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- ++++++++++++++++++++++ TEL ++++++++++++++++++++++ -->
-                                <!-- ++++++++++++++++++++++ Person ID ++++++++++++++++++++++ -->
-                                <div class="form-group row">
-                                    <label class="col-sm-2 form-control-label">รหัสประชาชน</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-sm-7">
-                                                <input id="personID" type="text" placeholder="รหัสประชาชน" class="form-control form-control-sm" value= '{{ data["PERSON_ID"] }}'>
-                                            </div>                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- ++++++++++++++++++++++Person ID++++++++++++++++++++++ -->
-                                <!-- ++++++++++++++++++++++ birth day ++++++++++++++++++++++ -->
-                                <div class="form-group row">
-                                    <label class="col-sm-2 form-control-label">วันเกิด</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-sm-7">
-                                                <input id="birthday" type="date" class="form-control form-control-sm" value ='{{ data["BIRTH_DAY"] }}'>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- ++++++++++++++++++++++ birth day++++++++++++++++++++++ -->
-                                <!-- ++++++++++++++++++++++ Country ++++++++++++++++++++++ -->
-                                <div class="form-group row">
-                                    <label class="col-sm-2 form-control-label">ประเทศ</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-sm-7 select">
-                                                <select name="country" class="form-control form-control-sm">
-                                                    <option value="" disabled selected>Select</option>
-                                                    {% for country in countrys %}
-                                                    <option value={{country}}>{{country}}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- ++++++++++++++++++++++ Country ++++++++++++++++++++++ -->
-                                <!-- ++++++++++++++++++++++ Nation ++++++++++++++++++++++ -->
-                                <div class="form-group row">
-                                    <label class="col-sm-2 form-control-label">สัญชาติ</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-sm-7 select">
-                                                <select name="nationality" class="form-control form-control-sm">
-                                                    <option value="" disabled selected>Select</option>
-                                                    {% for nation in nations %}
-                                                    <option value={{nation}}>{{nation}}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="line"></div>
-                                <!-- ++++++++++++++++++++++Passport++++++++++++++++++++++ -->
-                                <div class="form-group row">
-                                    <label class="col-sm-2 form-control-label">Passport</label>
-                                    <div class="col-sm-10">
-                                        <div class="form-group">
+                                <form>
+                                    <h4 class="h4 form-control-label">ข้อมูลลูกค้า</h4>
+                                    <!-- ++++++++++++++++++++++TH NAME++++++++++++++++++++++ -->
+                                    <div class="form-group row">
+                                        <div class="col-sm-12">
+                                            <label class="form-control-label">ชื่อ - นามสกุลภาษาไทย</label>
                                             <div class="row">
-                                                <div class="col-md-7">
-                                                    <input id="passport" type="text" placeholder="passport number" class="form-control form-control-sm" value= '{{ data["PASSPORT_ID"] }}'>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-2">
-                                                    <label class="form-control-label">Issue Date</label>
-                                                </div>
-                                                <div class="col-md-5">
-                                                    <input id="issueDate" type="date" class="form-control form-control-sm" value= '{{ data["ISSUE_DATE"] }}'>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-2">
-                                                    <label class="form-control-label">Expire Date</label>
-                                                </div>
-                                                <div class="col-md-5">
-                                                    <input id="expireDate" type="date" class="form-control form-control-sm" value= '{{ data["EXPIRE_DATE"] }}'>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- ++++++++++++++++++++++Passport++++++++++++++++++++++ -->
-                                <!-- ++++++++++++++++++++++Adress++++++++++++++++++++++ -->
-                                <div class="form-group row">
-                                    <label class="col-sm-2 form-control-label">ที่อยู่ปัจจุบัน</label>
-                                    <div class="col-sm-10">
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <input id="address" type="text" placeholder="ที่อยู่ปัจจุบัน" class="form-control form-control-sm" value= '{{ data["ADDRESS"] }}'>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-2">
-                                                    <label class="form-control-label">รหัสไปรณีย์</label>
-                                                </div>
-                                                <div class="col-md-5">
-                                                    <input id="postNo" type="text" class="form-control form-control-sm" value= '{{ data["POST_NO"] }}'>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-2">
-                                                    <label class="form-control-label">จังหวัด</label>
-                                                </div>
-                                                <div class="col-md-5">
-                                                    <select id="province" class="form-control form-control-sm">
-                                                        <option value="" disabled selected>Select</option>
-                                                        {% for province in provinces %}
-                                                        <option value={{province}}>{{province}}</option>
-                                                        {% endfor %}
+                                                <div class="col-sm-2 select">
+                                                    <select id="title_th" class="form-control" placeholder="select" onchange="changeTittle()">
+                                                        <!-- <option>select</option> -->
+                                                        <option value="" disabled selected>คำนำหน้า</option>
+                                                        <option value="นาย">นาย</option>
+                                                        <option value="นาง">นาง</option>
+                                                        <option value="นางสาว">นางสาว</option>
+                                                        <option value="เด็กหญิง">เด็กหญิง</option>
+                                                        <option value="เด็กชาย">เด็กชาย</option>
                                                     </select>
                                                 </div>
+                                                <div class="col-sm-5">
+                                                    <input id="name_th" type="text" placeholder="ชือ (ภาษาไทย)" class="form-control form-control-sm" value= '{{ data["THAI_NAME"] }}' >
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <input id="surname_th" type="text" placeholder="นามสกุล (ภาษาไทย)" class="form-control form-control-sm" value= '{{ data["THAI_SURNAME"] }}'>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- ++++++++++++++++++++++Address++++++++++++++++++++++ -->
-                                <!--  Eating -->
-                                <div class="form-group row">
-                                    <label class="col-sm-2 form-control-label">ประเภทอาหาร</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div>
-                                                    <input id="no_pig" type="checkbox" value="no_pig" class="checkbox-template">
-                                                    <label for="no_pig">ไม่ทานหมู</label>
+                                    <!-- ++++++++++++++++++++++EH NAME++++++++++++++++++++++ -->
+                                    <div class="form-group row">
+                                        <div class="col-sm-12">
+                                            <label class="form-control-label">Name - Surname (English)</label> 
+                                            <div class="row">
+                                                <div class="col-sm-2 select">
+                                                    <select id="title_en" disabled="" class="form-control">
+                                                        <option value="" disabled selected>Select</option>
+                                                        <option value="Mr.">Mr.</option>
+                                                        <option value="Mrs.">Mrs.</option>
+                                                        <option value="Ms.">Ms.</option>
+                                                        <option value="Mstr.">Mstr.</option>
+                                                    </select>
                                                 </div>
-                                                <div>
-                                                    <input id="no_meat" type="checkbox" value="no_meat" class="checkbox-template">
-                                                    <label for="no_meat">ไม่ทานเนื้อ</label>
+                                                <div class="col-sm-5">
+                                                    <input id="name_en" type="text" placeholder="Name (English)" class="form-control form-control-sm" value= '{{ data["ENG_NAME"] }}'>
                                                 </div>
-                                                <div>
-                                                    <input id="no_chicken" type="checkbox" value="no_chicken" class="checkbox-template">
-                                                    <label for="no_chicken">ไม่ทานไก่</label>
+                                                <div class="col-sm-5">
+                                                    <input id="surname_en" type="text" placeholder="Surname (English)" class="form-control form-control-sm" value= '{{ data["ENG_SURNAME"] }}'>
                                                 </div>
-                                                <div>
-                                                    <input id="halal" type="checkbox" value="halal" class="checkbox-template">
-                                                    <label for="halal">ฮาลาน</label>
-                                                </div>  
-                                                <div>
-                                                    <input id="mangsa" type="checkbox" value="mangsa" class="checkbox-template">
-                                                    <label for="mangsa">มังสวิรัต</label>
-                                                </div>              
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- ++++++++++++++++++++++EH NAME++++++++++++++++++++++ -->
+                                    <!-- ++++++++++++++++++++++ Gender +++++++++++++++++++++ -->
+                                    <div class="form-group row">
+                                        <div class="col-sm-12">
+                                            <label class="form-control-label">เพศ</label>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <input id="male" type="radio" checked="" value="M" name="optionsRadios">
+                                                    <label for="optionsRadios1">Male</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <input id="female" type="radio" value="F" name="optionsRadios">
+                                                    <label for="optionsRadios2">Female</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- ++++++++++++++++++++++ Gender +++++++++++++++++++++ -->
+                                    <!-- ++++++++++++++++++++++ Person ID Birth date++++++++++++++++++++++ -->
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label class="form-control-label">รหัสประชาชน</label> 
+                                            <input id="personID" type="text" placeholder="รหัสประชาชน" class="form-control form-control-sm" value= '{{ data["PERSON_ID"] }}'>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="form-control-label">วันเกิด</label>
+                                            <input id="birthday" type="date" class="form-control form-control-sm" value ='{{ data["BIRTH_DAY"] }}'>
+                                            <span class="help-block-none">ใช้ปี ค.ศ.</span>
+                                        </div>
+                                    </div>
+                                    <!-- ++++++++++++++++++++++Person ID birth date++++++++++++++++++++++ -->
+                                    <!-- ++++++++++++++++++++++ EMAIL TEL++++++++++++++++++++++ -->
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label class="form-control-label">EMAIL</label>
+                                            <input id="email" type="email" placeholder="EMAIL" class="form-control form-control-sm" value= '{{ data["EMAIL"] }}'>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="form-control-label">เบอร์ติดต่อ</label>
+                                            <input id="tel" type="text" placeholder="เบอร์ติดต่อ" class="form-control form-control-sm" value= '{{ data["TEL"] }}'>
+                                        </div>
+                                    </div>
+                                    <!-- ++++++++++++++++++++++ EMAIL TEL++++++++++++++++++++++ -->
+                                    <!-- ++++++++++++++++++++++ Country - Nation++++++++++++++++++++++ -->
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label class="form-control-label">ประเทศ</label>
+                                            <select name="country" class="form-control">
+                                                <option value="" disabled selected>Select</option>
+                                                {% for country in countrys %}
+                                                <option value={{country}}>{{country}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="form-control-label">สัญชาติ</label>
+                                            <select name="nationality" class="form-control">
+                                                <option value="" disabled selected>Select</option>
+                                                {% for nation in nations %}
+                                                <option value={{nation}}>{{nation}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- ++++++++++++++++++++++ Country - nation ++++++++++++++++++++++ -->
+                                    <!-- ++++++++++++++++++++++Adress++++++++++++++++++++++ -->
+                                    <div class="form-group row">
+                                        <div class="col-sm-12">
+                                            <label class="form-control-label">ที่อยู่ปัจจุบัน</label>
+                                            <input id="address" type="text" placeholder="ที่อยู่ปัจจุบัน" class="form-control" value= '{{ data["ADDRESS"] }}'>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label class="form-control-label">จังหวัด</label>
+                                            <select id="province" class="form-control">
+                                                <option value="" disabled selected>Select</option>
+                                                {% for province in provinces %}
+                                                <option value={{province}}>{{province}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="form-control-label">รหัสไปรณีย์</label>                                        
+                                            <input id="postNo" type="text" class="form-control" value= '{{ data["POST_NO"] }}'>    
+                                        </div>
+                                    </div>
+                                    <!-- ++++++++++++++++++++++Address++++++++++++++++++++++ -->
+                                    <div class="line"></div>
+                                    <!-- ++++++++++++++++++++++Passport++++++++++++++++++++++ -->
+                                    <h4 class="h4 form-control-label">Passport</h4>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label class="form-control-label">Passport No.</label>
+                                            <input id="passport" type="text" placeholder="passport number" class="form-control form-control-sm" value= '{{ data["PASSPORT_ID"] }}'>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label class="form-control-label">Issue Date</label>
+                                            <input id="issueDate" type="date" class="form-control form-control-sm" value= '{{ data["ISSUE_DATE"] }}'>
+                                            <span class="help-block-none">ใช้ปี ค.ศ.</span>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label class="form-control-label">Expire Date</label>
+                                            <input id="expireDate" type="date" class="form-control form-control-sm" value= '{{ data["EXPIRE_DATE"] }}'>
+                                            <span class="help-block-none">ใช้ปี ค.ศ.</span>
+                                        </div>
+                                    </div>              
+                                    <!-- ++++++++++++++++++++++Passport++++++++++++++++++++++ -->
+                                    <div class="line"></div>
+
+                                    <!--  Eating -->
+                                    <h4 class="h4 form-control-label">ประเภทอาหารของลูกค้า</h4>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <div>
+                                                <input id="no_pig" type="checkbox" value="no_pig" class="checkbox-template">
+                                                <label for="no_pig">ไม่ทานหมู</label>
                                             </div>
                                             <div>
-                                                <div>
-                                                    <input id="vegetarian" type="checkbox" value="vegetarian" class="checkbox-template">
-                                                    <label for="vegetarian">vegetarian</label>
-                                                </div>
-                                                <div>
-                                                    <input id="islam" type="checkbox" value="islam" class="checkbox-template">
-                                                    <label for="islam">อิสลาม (ไม่เคร่งมาก)</label>
-                                                </div>
-                                                <div>
-                                                    <input id="no_seafood" type="checkbox" value="no_seafood" class="checkbox-template">
-                                                    <label for="no_seafood">ไม่ทาน Seafood</label>
-                                                </div>
-                                                <div>
-                                                    <input id="no_shrimp" type="checkbox" value="no_shrimp" class="checkbox-template">
-                                                    <label for="no_shrimp">ไม่ทานกุ้ง</label>
-                                                </div>  
-                                                <div>
-                                                    <input id="no_fish" type="checkbox" value="no_fish" class="checkbox-template">
-                                                    <label for="no_fish">ไม่ทานปลา</label>
-                                                </div>  
+                                                <input id="no_meat" type="checkbox" value="no_meat" class="checkbox-template">
+                                                <label for="no_meat">ไม่ทานเนื้อ</label>
                                             </div>
+                                            <div>
+                                                <input id="no_chicken" type="checkbox" value="no_chicken" class="checkbox-template">
+                                                <label for="no_chicken">ไม่ทานไก่</label>
+                                            </div>               
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div>
+                                                <input id="no_seafood" type="checkbox" value="no_seafood" class="checkbox-template">
+                                                <label for="no_seafood">ไม่ทาน Seafood</label>
+                                            </div>
+                                            <div>
+                                                <input id="no_shrimp" type="checkbox" value="no_shrimp" class="checkbox-template">
+                                                <label for="no_shrimp">ไม่ทานกุ้ง</label>
+                                            </div>  
+                                            <div>
+                                                <input id="no_fish" type="checkbox" value="no_fish" class="checkbox-template">
+                                                <label for="no_fish">ไม่ทานปลา</label>
+                                            </div> 
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div>
+                                                <input id="mangsa" type="checkbox" value="mangsa" class="checkbox-template">
+                                                <label for="mangsa">มังสวิรัต</label>
+                                            </div> 
+                                            <div>
+                                                <input id="vegetarian" type="checkbox" value="vegetarian" class="checkbox-template">
+                                                <label for="vegetarian">vegetarian</label>
+                                            </div>
+                                            <div>
+                                                <input id="halal" type="checkbox" value="halal" class="checkbox-template">
+                                                <label for="halal">ฮาลาน</label>
+                                            </div>
+                                            <div>
+                                                <input id="islam" type="checkbox" value="islam" class="checkbox-template">
+                                                <label for="islam">อิสลาม (ไม่เคร่งมาก)</label>
+                                            </div> 
                                         </div>
                                     </div>
-                                </div>
-                                <div class="line"></div>
-                                <!--  Eating -->
-                                <!-- detail -->
+                                    <div class="line"></div>
+                                    <!--  Eating -->
+                                    <!-- detail -->
+                                    <div class="form-group row">
+                                        <div class="col-sm-12">
+                                            <label class="form-control-label">หมายเหตุ</label>
+                                            <input id="detail" type="text" placeholder="หมายเหตุ" class="form-control form-control-sm" value= '{{ data["DETAIL"] }}'>
+                                            
+                                        </div>
+                                    </div>
+                                    <!-- detail -->
+                                </form>
                                 <div class="form-group row">
-                                    <label class="col-sm-2 form-control-label">หมายเหตุ</label>
                                     <div class="col-sm-10">
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <input id="detail" type="text" placeholder="หมายเหตุ" class="form-control form-control-sm" value= '{{ data["DETAIL"] }}'>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <button type="submit" class="btn btn-primary" id="submit" onclick="clickSubmit()">Save changes</button>
+                                        <button type="cancel" class="btn btn-secondary">Cancel</button>
                                     </div>
-                                </div>
-                                <!-- detail -->
-                            </form>
-                            <div class="form-group row">
-                                <div class="col-sm-4 offset-sm-3">
-                                    <button type="submit" class="btn btn-primary" id="submit" onclick="clickSubmit()">Save changes</button>
-                                    <button type="cancel" class="btn btn-secondary">Cancel</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- Rigth column -->
-                <div class="col-lg-4">
-                    <div class="card">
-                        <div class="card-header d-flex align-items-center">
-                            <h3 class="h4">รูปภาพ</h3>   
-                        </div>
-                        <div class="card-body">
-                            <form>
-                                <div class="form-group row">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                             <div class="input-group col-md-12">
-                                                <input type="text" class="form-control"><span class="input-group-btn">
+                    <!-- Rigth column -->
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header d-flex align-items-center">
+                                <h3 class="h4">รูปภาพ</h3>   
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="form-group row">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                   <div class="input-group col-md-12">
+                                                    <input type="text" class="form-control"><span class="input-group-btn">
                                                     <button id="browse" type="button" class="btn btn-primary">Browse..</button></span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                             <div class="input-group col-md-12">
+                                               <div class="input-group col-md-12">
                                                 <div class="image has-shadow"><img src="{{ url_for('static',filename='band.png')}}" alt="..." class="img-fluid"></div>
-                                           </div>
-                                       </div>
-                                   </div>
-                                   <div class="line"> </div>
-                               </div>
-                           </form>
-                       </div>
-                   </div>
-               </div>
-           </div>
-       </section>
-   </div>        
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line"> </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>        
 </body>
 </html>
