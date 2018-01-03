@@ -89,7 +89,7 @@
                                     <h3 class="h4">Tour ID : </h3>
                                 </div>
                                 <div class="col-sm-3">
-                                    <h3 class="h4">{{ data["TOUR_ID"] }}</h3>
+                                    <h3 id="tour_id" class="h4">{{ data["TOUR_ID"] }}</h3>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -151,11 +151,11 @@
                                             <label class="form-control-label">เพศ</label>
                                             <div class="row">
                                                 <div class="col-sm-3">
-                                                    <input id="male" type="radio" checked="" value="M" name="optionsRadios">
+                                                    <input id="male" type="radio" checked="" value="M" disabled="" name="sexRadios">
                                                     <label for="optionsRadios1">Male</label>
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <input id="female" type="radio" value="F" name="optionsRadios">
+                                                    <input id="female" type="radio" value="F" disabled="" name="sexRadios">
                                                     <label for="optionsRadios2">Female</label>
                                                 </div>
                                             </div>
@@ -191,7 +191,7 @@
                                     <div class="form-group row">
                                         <div class="col-sm-6">
                                             <label class="form-control-label">ประเทศ</label>
-                                            <select name="country" class="form-control">
+                                            <select id="country" name="country" class="form-control">
                                                 <option value="" disabled selected>Select</option>
                                                 {% for country in countrys %}
                                                 <option value={{country}}>{{country}}</option>
@@ -200,7 +200,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <label class="form-control-label">สัญชาติ</label>
-                                            <select name="nationality" class="form-control">
+                                            <select id="nationality" name="nationality" class="form-control">
                                                 <option value="" disabled selected>Select</option>
                                                 {% for nation in nations %}
                                                 <option value={{nation}}>{{nation}}</option>
@@ -228,7 +228,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <label class="form-control-label">รหัสไปรณีย์</label>                                        
-                                            <input id="postNo" type="text" class="form-control" value= '{{ data["POST_NO"] }}'>    
+                                            <input id="post" type="text" class="form-control" value= '{{ data["POST_NO"] }}'>    
                                         </div>
                                     </div>
                                     <!-- ++++++++++++++++++++++Address++++++++++++++++++++++ -->
@@ -319,7 +319,7 @@
                                 <div class="form-group row">
                                     <div class="col-sm-10">
                                         <button type="submit" class="btn btn-primary" id="submit" onclick="clickSubmit()">Save changes</button>
-                                        <button type="cancel" class="btn btn-secondary">Cancel</button>
+                                        <button type="back" class="btn btn-secondary">Back</button>
                                     </div>
                                 </div>
                             </div>

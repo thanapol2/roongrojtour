@@ -92,139 +92,139 @@
                                     <h3 class="h4">Company ID : </h3>
                                 </div>
                                 <div class="col-sm-3">
-                                    <h3 class="h4">{{ data["COMPANY_ID"] }}</h3>
+                                    <h3 id= "company_id" class="h4">{{ data["COMPANY_ID"] }}</h3>
                                 </div>
                             </div>
                             <div class="card-body">
-                              <form>
-                                <!-- ++++++++++++++++++++++TH NAME++++++++++++++++++++++ -->
-                                <div class="form-group row">
-                                    <div class="col-sm-12">
-                                        <label class="form-control-label">ชื่อภาษาไทย</label>
-                                        <input id="name_th" type="text" placeholder="ชื่อภาษาไทย" class="form-control form-control-sm" value= '{{ data["THAI_NAME"] }}'>
+                                <form>
+                                    <!-- ++++++++++++++++++++++TH NAME++++++++++++++++++++++ -->
+                                    <div class="form-group row">
+                                        <div class="col-sm-12">
+                                            <label class="form-control-label">ชื่อภาษาไทย</label>
+                                            <input id="name_th" type="text" placeholder="ชื่อภาษาไทย" class="form-control form-control-sm" value= '{{ data["THAI_NAME"] }}'>
+                                        </div>
                                     </div>
-                                </div>
-                                <!-- ++++++++++++++++++++++TH NAME++++++++++++++++++++++ -->
-                                <!-- ++++++++++++++++++++++EH NAME++++++++++++++++++++++ -->
-                                <div class="form-group row">
-                                    <div class="col-sm-12">
-                                        <label class="form-control-label">Company Name</label>
-                                        <input id="name_EN" type="text" placeholder="Company Name (English)" class="form-control form-control-sm" value= '{{ data["ENG_NAME"] }}'>
-                                        <span class="help-block-none">กรอกชื่อบริษัทเป็นภาษาอังกฤษ</span>
+                                    <!-- ++++++++++++++++++++++TH NAME++++++++++++++++++++++ -->
+                                    <!-- ++++++++++++++++++++++EH NAME++++++++++++++++++++++ -->
+                                    <div class="form-group row">
+                                        <div class="col-sm-12">
+                                            <label class="form-control-label">Company Name</label>
+                                            <input id="name_en" type="text" placeholder="Company Name (English)" class="form-control form-control-sm" value= '{{ data["ENG_NAME"] }}'>
+                                            <span class="help-block-none">กรอกชื่อบริษัทเป็นภาษาอังกฤษ</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <!-- ++++++++++++++++++++++EH NAME++++++++++++++++++++++ -->
-                                <!-- ++++++++++++++++++++++ TYPE TAX ID ++++++++++++++++++++++ -->
-                                <div class="form-group row">
-                                    <div class="col-sm-6">
-                                        <label class="form-control-label">เลขผู้เสียภาษี</label>
-                                        <input id="taxID" type="text" placeholder="เลขผู้เสียภาษี" class="form-control form-control-sm" value= '{{ data["TAX_ID"] }}'>
+                                    <!-- ++++++++++++++++++++++EH NAME++++++++++++++++++++++ -->
+                                    <!-- ++++++++++++++++++++++ TYPE TAX ID ++++++++++++++++++++++ -->
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label class="form-control-label">เลขผู้เสียภาษี</label>
+                                            <input id="taxID" type="text" placeholder="เลขผู้เสียภาษี" class="form-control form-control-sm" value= '{{ data["TAX_ID"] }}'>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="form-control-label">หมวดหมู่บริษัท</label>
+                                            <select id="company_type" name="company_type" class="form-control">
+                                                <option value="" disabled selected>Select</option>
+                                                {% for type in types %}
+                                                <option value={{type}}>{{type}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <label class="form-control-label">หมวดหมู่บริษัท</label>
-                                        <select name="company_type" class="form-control">
-                                            <option value="" disabled selected>Select</option>
-                                            {% for type in types %}
-                                            <option value={{type}}>{{type}}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                </div>
-                                <!-- ++++++++++++++++++++++ EMAIL TEL ++++++++++++++++++++++ -->
-                                <div class="form-group row">
-                                    <div class="col-sm-6">
-                                        <label class="form-control-label">EMAIL</label>
-                                        <input id="email" type="email" placeholder="EMAIL" class="form-control form-control-sm" value= '{{ data["EMAIL"] }}'>
-                                    </div>
-                                    <div class="col-sm-6"> 
-                                        <label class="form-control-label">เบอร์ติดต่อ</label>
-                                        <input id="tel" type="text" placeholder="เบอร์ติดต่อ" class="form-control form-control-sm" value= '{{ data["TEL_NO"] }}'>
-                                    </div>
+                                    <!-- ++++++++++++++++++++++ EMAIL TEL ++++++++++++++++++++++ -->
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label class="form-control-label">EMAIL</label>
+                                            <input id="email" type="email" placeholder="EMAIL" class="form-control form-control-sm" value= '{{ data["EMAIL"] }}'>
+                                        </div>
+                                        <div class="col-sm-6"> 
+                                            <label class="form-control-label">เบอร์ติดต่อ</label>
+                                            <input id="tel" type="text" placeholder="เบอร์ติดต่อ" class="form-control form-control-sm" value= '{{ data["TEL_NO"] }}'>
+                                        </div>
 
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-3">
-                                        <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" id="meetinglog">Meeting Mangament</button>
-                                    </div>   
-                                </div>
-                                <div class = "line"></div>
-                                <!-- ++++++++++++++++++++++ EMAIL TEL ++++++++++++++++++++++ -->
-                                
-                                <!-- ++++++++++++++++++++++Adress++++++++++++++++++++++ -->
-                                <div class="form-group row">
-                                    <div class="col-sm-12">
-                                        <label class="form-control-label">ที่อยู่ปัจจุบัน</label>
-                                        <input id="address" type="text" placeholder="ที่อยู่ปัจจุบัน" class="form-control form-control-sm" value= '{{ data["ADDRESS"] }}'>
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-md-6">
-                                        <label class="form-control-label">รหัสไปรณีย์</label>
-                                        <input id="postNo" type="text" class="form-control form-control-sm" value= '{{ data["POST_NO"] }}'>
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" id="meetinglog">Meeting Mangament</button>
+                                        </div>   
                                     </div>
-                                    <div class="col-md-6">
-                                        <label class="form-control-label">จังหวัด</label>
-                                        <select id="province" class="form-control">
-                                            <option value="" disabled selected>Select</option>
-                                            {% for province in provinces %}
-                                            <option value={{province}}>{{province}}</option>
-                                            {% endfor %}
-                                        </select>
+                                    <div class = "line"></div>
+                                    <!-- ++++++++++++++++++++++ EMAIL TEL ++++++++++++++++++++++ -->
+
+                                    <!-- ++++++++++++++++++++++Adress++++++++++++++++++++++ -->
+                                    <div class="form-group row">
+                                        <div class="col-sm-12">
+                                            <label class="form-control-label">ที่อยู่ปัจจุบัน</label>
+                                            <input id="address" type="text" placeholder="ที่อยู่ปัจจุบัน" class="form-control form-control-sm" value= '{{ data["ADDRESS"] }}'>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="line"></div>
-                                <!-- ++++++++++++++++++++++Address++++++++++++++++++++++ -->
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label class="form-control-label">รหัสไปรณีย์</label>
+                                            <input id="post" type="text" class="form-control form-control-sm" value= '{{ data["POST_NO"] }}'>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-control-label">จังหวัด</label>
+                                            <select id="province" class="form-control">
+                                                <option value="" disabled selected>Select</option>
+                                                {% for province in provinces %}
+                                                <option value={{province}}>{{province}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="line"></div>
+                                    <!-- ++++++++++++++++++++++Address++++++++++++++++++++++ -->
+                                    <!-- detail -->
+                                    <div class="form-group row">    
+                                        <div class="col-sm-12">
+                                            <label class="form-control-label">หมายเหตุ</label>
+                                            <input id="detail" type="text" placeholder="หมายเหตุ" class="form-control form-control-sm" value= '{{ data["REMARK"] }}'>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <button type="submit" class="btn btn-primary" id="submit" onclick="clickSubmit()">Save changes</button>
+                                            <button type="cancel" class="btn btn-secondary">Cancel</button>
+                                        </div>
+                                    </div>
+                                </from>
                                 <!-- detail -->
-                                <div class="form-group row">    
-                                    <div class="col-sm-12">
-                                        <label class="form-control-label">หมายเหตุ</label>
-                                        <input id="detail" type="text" placeholder="หมายเหตุ" class="form-control form-control-sm" value= '{{ data["REMARK"] }}'>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- detail -->
-                            <div class="form-group row">
-                                <div class="col-sm-6">
-                                    <button type="submit" class="btn btn-primary" id="submit" onclick="clickSubmit()">Save changes</button>
-                                    <button type="cancel" class="btn btn-secondary">Cancel</button>
-                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- Rigth column -->
-                <div class="col-lg-4">
-                    <div class="card">
-                        <div class="card-header d-flex align-items-center">
-                            <h3 class="h4">รูปภาพ</h3>   
-                        </div>
-                        <div class="card-body">
-                            <form>
-                                <div class="form-group row">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                               <div class="input-group col-md-12">
-                                                <input type="text" class="form-control"><span class="input-group-btn">
-                                                <button id="browse" type="button" class="btn btn-primary">Browse..</button></span>
+                    <!-- Rigth column -->
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header d-flex align-items-center">
+                                <h3 class="h4">รูปภาพ</h3>   
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="form-group row">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                   <div class="input-group col-md-12">
+                                                    <input type="text" class="form-control"><span class="input-group-btn">
+                                                        <button id="browse" type="button" class="btn btn-primary">Browse..</button></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                   <div class="input-group col-md-12">
+                                                    <div class="image has-shadow"><img src="{{ url_for('static',filename='band.png')}}" alt="..." class="img-fluid"></div>
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="line"> </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                           <div class="input-group col-md-12">
-                                            <div class="image has-shadow"><img src="{{ url_for('static',filename='band.png')}}" alt="..." class="img-fluid"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="line"> </div>
+                                </form>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-</div>        
-</body>
-</html>
+            </section>
+        </div>        
+    </body>
+    </html>

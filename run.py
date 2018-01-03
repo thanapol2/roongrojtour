@@ -50,11 +50,27 @@ def temp(tourID):
 
 @app.route('/api/update_tour',methods = ['POST'])
 def createupdate_tour():
-    passport =  request.get_json()
+    data =  request.get_json()
     # issueDate = request.form['password']
-    print(passport["name_th"])
+    print(data)
+    if(data["tour_id"]==""):
+        print("new")
+    else:
+        print("update")
     # print(issueDate)
-    return json.dumps({'status':'OK','user':passport})
+    return json.dumps({'status':'OK','user':data})
+
+@app.route('/api/update_company',methods = ['POST'])
+def createupdate_company():
+    data =  request.get_json()
+    # issueDate = request.form['password']
+    print(data)
+    if(data["company_id"]==""):
+        print("new")
+    else:
+        print("update")
+    # print(issueDate)
+    return json.dumps({'status':'OK','user':data})
 
 @app.route('/api/search_invoice/<invoiceNo>')
 def getInvoice(invoiceNo):
