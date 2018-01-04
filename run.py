@@ -77,9 +77,11 @@ def getInvoice(invoiceNo):
     data = []
     return render_template("invoice_detail.html",data=data)
 
+#  payment_no = No_Type
 @app.route('/api/search_payment/<paymentNo>')
 def getPayment(paymentNo):
-    data = []
+    payment = paymentNo.split('_')
+    data = dao.getPaymentDetail(payment[0],payment[1])
     return render_template("payment_detail.html",data=data,banks=BANKS,paymentTypes=PAYMENT_TYPES)
 
 

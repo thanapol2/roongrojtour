@@ -79,33 +79,35 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header d-flex align-items-center">
-                                <div class="col-sm-4">
-                                    <h3 class="h4">Payment Detail</h3>
-                                </div>
                                 <div class="col-sm-2">
+                                    <h3 class="h4">{{ data["PAYMENT_TYPE"] }} เลขที่ :</h3>
                                 </div>
-                                <div class="col-sm-2">
-                                    <h3 class="h4">Payment No : </h3>
-                                </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-1">
                                     <h3 class="h4">{{ data["PAYMENT_NO"] }}</h3>
                                 </div>
+                                <div class="col-sm-6">
+                                </div>
+                                <div class="col-sm-3">
+                                    <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" id="print">Print Payment</button>
+                                </div> 
                             </div>
                             <div class="card-body">
                                 <form>
                                     <div class="form-group row">
                                         <!-- Payment Head detail -->
+                                        <div class="col-md-3">
+                                             <div class="form-group">
+                                                <label class="form-control-label">Sale</label>
+                                                <input id="saleID" type="text" class="form-control form-control-sm" placeholder="รหัส sales" value= '{{ data["SALES_ID"] }}'>
+                                            </div>
+                                        </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label class="form-control-label">Sale</label>
-                                                <input id="saleName" type="text" class="form-control form-control-sm" placeholder="ชื่อ-นามสกุล sales" value= '{{ data["SALES"] }}'>
+                                                <input id="saleName" type="text" class="form-control form-control-sm" placeholder="ชื่อ-นามสกุล sales" value= '{{ data["SALES_NAME"] }}'>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
-                                        </div>
                                         <div class="col-sm-3">
-                                            <br>
-                                            <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" id="print">Print Payment</button>
                                         </div> 
                                     </div>                                                
                                     <div class="line"></div>
@@ -114,11 +116,11 @@
                                     <div class="form-group row">
                                         <div class="col-md-3">
                                             <label class="form-control-label">Tour ID</label>
-                                            <input id="tourID" type="text" class="form-control form-control-sm" disabled="" value= '{{ data["TOUR_ID"] }}'>
+                                            <input id="tourID" type="text" class="form-control form-control-sm" disabled="" value= '{{ data["CUSTOMER_ID"] }}'>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-control-label">ชื่อลูกค้า</label>
-                                            <input id="tourName" type="text" class="form-control form-control-sm" placeholder="Customer Name" value= '{{ data["TOUR_NAME"] }}'>
+                                            <input id="tourName" type="text" class="form-control form-control-sm" placeholder="Customer Name" value= '{{ data["CUSTOMER_NAME"] }}'>
                                         </div>
                                         <div class="col-md-3">
                                             <br>
@@ -225,7 +227,7 @@
                                                 </div>
                                                 <div class="col-md-9">
                                                     <div class="input-group">
-                                                        <input id="sum" type="text" class="form-control form-control-sm" disabled="" placeholder="0.00" value= '{{ data["sum"] }}'><span class="input-group-addon">Bath</span>
+                                                        <input id="totalAll" type="text" class="form-control form-control-sm" disabled="" placeholder="0.00" value= '{{ data["TOTAL_ALL"] }}'><span class="input-group-addon">Bath</span>
                                                     </div>
                                                 </div>   
                                             </div>
