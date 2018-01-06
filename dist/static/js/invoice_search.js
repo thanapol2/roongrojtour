@@ -1,23 +1,23 @@
 
 $(document).ready(function() {
-	var table = $('#example').DataTable({
-     "columnDefs": [ {
-            "targets": -1,
-            "data": null,
-            "defaultContent": "<button>View/Edit</button>"
-        } ,
-        {
-         'targets': 0,
-         'searchable': false,
-         'orderable': false,
-         'width': '1%',
-         'className': 'dt-body-center',
-         'render': function (data, type, full, meta){
-             return '<input type="checkbox">';
-         }
-      }],
-      "order": [[ 1, 'asc' ]]
-  });
+  var table = $('#example').DataTable({
+   "columnDefs": [ {
+    "targets": -1,
+    "data": null,
+    "defaultContent": "<button>View/Edit</button>"
+  } ,
+  {
+    'targets': 0,
+    'searchable': false,
+    'orderable': false,
+    'width': '1%',
+    'className': 'dt-body-center',
+    'render': function (data, type, full, meta){
+     return '<input type="checkbox">';
+   }
+ }],
+ "order": [[ 1, 'asc' ]]
+});
   $('#dropdown1').on('change', function () {
     table.draw();
   } );
@@ -42,7 +42,11 @@ $(document).ready(function() {
       if (startDate <= max && startDate >= min) { return true && result; }
       return false;
     }
-  );
+    );
+  $('#example tbody').on( 'click', 'button', function () {
+    var data = table.row( $(this).parents('tr') ).data();
+    document.location.href = "/api/search_invoice/"+data[1]
+  } );
 
   // Event listener to the two range filtering inputs to redraw on input
 });

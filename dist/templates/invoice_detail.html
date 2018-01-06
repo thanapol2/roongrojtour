@@ -88,7 +88,7 @@
                                     <h3 class="h4">Invoice No : </h3>
                                 </div>
                                 <div class="col-sm-4">
-                                    <h3 class="h4">{{ data["INVOICE_NO"] }}</h3>
+                                    <h3 class="h4">{{ data["INVOICE_TYPE"] }}{{ data["INVOICE_NO"] }}{{ data["REVISED"] }}</h3>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -114,7 +114,7 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label class="form-control-label">Sale</label>
-                                                <input id="saleName" type="text" class="form-control form-control-sm" placeholder="ชื่อ-นามสกุล sales" value= '{{ data["SALES"] }}'>
+                                                <input id="saleName" type="text" class="form-control form-control-sm" placeholder="ชื่อ-นามสกุล sales" value= '{{ data["SALES_NAME"] }}'>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
@@ -126,7 +126,7 @@
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <label class="form-control-label">Due day</label>
-                                                <input id="due" type="number" class="form-control form-control-sm" value= '{{ data["DUE"] }}'>
+                                                <input id="due" type="number" class="form-control form-control-sm" value= '{{ data["DUE_DAY"] }}'>
                                                 <span class="help-block-none">กรอกระยะเวลา due day</span>
                                             </div>
                                         </div> 
@@ -149,11 +149,11 @@
                                     <div class="form-group row">
                                         <div class="col-md-3">
                                             <label class="form-control-label">Tour ID</label>
-                                            <input id="tourID" type="text" class="form-control form-control-sm" disabled="" value= '{{ data["TOUR_ID"] }}'>
+                                            <input id="tourID" type="text" class="form-control form-control-sm" disabled="" value= '{{ data["CUSTOMER_ID"] }}'>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-control-label">ชื่อลูกค้า</label>
-                                            <input id="tourName" type="text" class="form-control form-control-sm" placeholder="Customer Name" value= '{{ data["TOUR_NAME"] }}'>
+                                            <input id="tourName" type="text" class="form-control form-control-sm" placeholder="Customer Name" value= '{{ data["CUSTOMER_NAME"] }}'>
                                         </div>
                                         <div class="col-md-3">
                                             <br>
@@ -178,7 +178,7 @@
                                     <div class="form-group row">
                                         <div class="col-md-9">
                                             <label class="form-control-label">Attention</label>
-                                            <input id="attention" type="text" class="form-control form-control-sm" placeholder="attention" value= '{{ data["ATTENTION"] }}'>
+                                            <input id="attention" type="text" class="form-control form-control-sm" placeholder="attention" value= '{{ data["ATTN"] }}'>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -239,6 +239,17 @@
                                                         <th>Total (THB)</th>
                                                     </tr>
                                                 </thead>
+                                                {% for row in rows %}
+                                                <tr>
+                                                    <td></td>
+                                                    <td>{{row[0]}}</td>
+                                                    <td>{{row[1]}}</td>
+                                                    <td>{{row[2]}}</td>
+                                                    <td>{{row[3]}}</td>
+                                                    <td>{{row[4]}}</td>
+                                                    <td></td>
+                                                </tr>
+                                                {% endfor %}
                                             </table>
                                         </div>
                                     </div>
@@ -279,7 +290,7 @@
                                                 </div>
                                                 <div class="col-md-9">
                                                     <div class="input-group">
-                                                        <input id="sum" type="text" class="form-control form-control-sm" disabled="" placeholder="0.00" value= '{{ data["sum"] }}'><span class="input-group-addon">Bath</span>
+                                                        <input id="sum" type="text" class="form-control form-control-sm" disabled="" placeholder="0.00" value= '{{ data["TOTAL_ALL"] }}'><span class="input-group-addon">Bath</span>
                                                     </div>
                                                 </div>   
                                             </div>

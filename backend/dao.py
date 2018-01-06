@@ -252,9 +252,9 @@ def getPaymentDetail(paymentNo,isVat):
 		"		    h.VAT,										            " \
 		"		    h.TAX_ID,									            " \
 		"			p.ISVAT,										        " \
-		"		    TO_CHAR(p.PAYMENT_DATE,'DD/MM/YYYY') payment_date,	    " \
+		"		    TO_CHAR(p.PAYMENT_DATE,'YYYY-MM-DD') payment_date,	    " \
 		"		    p.CHEQUE_BANK,								            " \
-		"		    TO_CHAR(p.CHEQUE_DATE,'DD/MM/YYYY') CHEQUE_DATE,	    " \
+		"		    TO_CHAR(p.CHEQUE_DATE,'YYYY-MM-DD') CHEQUE_DATE,	    " \
 		"		    p.SALES_ID,									            " \
         "		    p.CHEQUE_NO									            " \
         "	FROM payment_detail p								            " \
@@ -292,3 +292,113 @@ def getPaymentDetail(paymentNo,isVat):
     cur.close()
     conn.close()
     return result
+
+def getInvoiceDetail(invoiceNo,rev):
+    headInvoice = {}
+    conn = cx_Oracle.connect(USER,PASS,DB_URL)
+    cur = conn.cursor()
+    sql = "SELECT I.INVOICE_TYPE,							" \
+        "		I.INVOICE_NO,									" \
+        "		I.REVISED, 										" \
+        "		I.CREATE_USER, 									" \
+        "		S.TH_NAME||' '||S.TH_SURNAME SALES_NAME,		" \
+        "		to_char(I.issue_date,'YYYY-MM-DD') issue_date, 	" \
+        "		to_char(I.DUE_DATE,'YYYY-MM-DD') DUE_DATE,		" \
+        "		I.due_date - I.issue_date DUE_DAY, 				" \
+        "		I.CUSTOMER_ID,									" \
+        "		I.CUSTOMER_NAME,								" \
+        "		I.ATTN,	 										" \
+        "		I.TAX_ID,	 									" \
+        "		I.ADDRESS,	 									" \
+        "		I.TEL_NO,	 									" \
+        "		I.EMAIL,	 									" \
+        "		I.VAT,											" \
+        "		I.TOTAL_ALL,									" \
+        "		I.PAYMENT_TYPE,									" \
+        "		I.REF,											" \
+        "		I.SUBJECT										" \
+        "   FROM  invoice_head	i	                            " \
+        "   LEFT JOIN SALES	s									" \
+        "   ON i.CREATE_USER = s.SALES_ID						" \
+        "   WHERE I.INVOICE_Type								" \
+        "	    ||I.INVOICE_NO = '"+invoiceNo+"'	            " \
+        "	    AND I.REVISED    = '" +rev+"'		            "
+    cur.execute(sql)
+    rows = cur.fetchall()
+    for row in rows:
+        headInvoice['INVOICE_TYPE'] = row[0]
+        headInvoice['INVOICE_NO'] = row[1]
+        if(row[2]=="0"):
+            headInvoice['REVISED'] = ""
+        else:
+            headInvoice['REVISED'] = " (REV"+row[2]+")"
+        headInvoice['SALES_ID'] = row[3]
+        headInvoice['SALES_NAME'] = row[4]
+        headInvoice['ISSUE_DATE'] = row[5]
+        headInvoice['DUE_DATE'] = row[6]
+        headInvoice['DUE_DAY'] = row[7]
+        headInvoice['CUSTOMER_ID'] = row[8]
+        headInvoice['CUSTOMER_NAME'] = row[9]
+        headInvoice['ATTN'] = row[10]
+        headInvoice['TAX_ID'] = row[11]
+        headInvoice['ADDRESS'] = row[12]
+        headInvoice['TEL'] = row[13]
+        headInvoice['EMAIL'] = row[14]
+        headInvoice['VAT'] = row[15]
+        headInvoice['TOTAL_ALL'] = row[16]
+        headInvoice['PAYMENT_TYPE'] = row[17]
+        headInvoice['REF'] = row[18]
+        headInvoice['SUBJECT'] = row[19]
+
+    sql =  "SELECT  SERVICE_NAME, 						" \
+            "		SERVICE_TYPE,					 	" \
+            "		QTY_AD,								" \
+            "		PRICE,								" \
+            "		TOTAL								" \
+            "FROM  invoice_DETAIL	                    " \
+            "WHERE INVOICE_Type	                		" \
+            "	||INVOICE_NO = '"+invoiceNo+"'		    " \
+            "	AND REVISED    = '"+rev+"'		    	" \
+            "ORDER BY SEQ_NO							"
+    cur.execute(sql)
+    detailInvoice = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return headInvoice,detailInvoice
+
+def newCompany(data):
+    conn = cx_Oracle.connect(USER, PASS, DB_URL)
+    cur = conn.cursor()
+    sql = "INSERT INTO COMPANY_MASTER 	"\
+			"		(THAI_NAME,			"\
+			"		ENG_NAME,			"\
+			"		ADDRESS,			"\
+			"		POST_NO,			"\
+			"		PROVINCE,			"\
+			"		TAX_ID,				"\
+			"		EMAIL,				"\
+			"		TEL_NO,				"\
+			"		COMPANY_TYPE,		"\
+			"		REMARK)				"\
+			"		VALUES (			"\
+			"'"+data['THAI_NAME']+"',   "\
+			"'"+data['ENG_NAME']+"',    "\
+			"'"+data['ADDRESS']+"',     "\
+			"'"+data['POST_NO']+"',     "\
+			"'"+data['PROVINCE']+"',    "\
+			"'"+data['TAX_ID']+"',      "\
+			"'"+data['EMAIL']+"',           "\
+			"'"+data['TEL_NO']+"',          "\
+			"'"+data['COMPANY_TYPE']+"',    "\
+			"'"+data['REMARK']+"'           "\
+			")"
+    try:
+        cur.execute(sql)
+        conn.commit()
+    except cx_Oracle.DatabaseError as e:
+        conn.rollback()
+    finally:
+        cur.close()
+        conn.close()

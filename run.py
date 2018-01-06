@@ -17,20 +17,11 @@ COMPANY_TYPES = config.COMPANY_TYPES
 BANKS = config.BANKS
 PAYMENT_TYPES = config.PAYMENT_TYPES
 
+#  Tour member ------------------------
 @app.route('/api/search_tour')
 def searchTour():
     rows = dao.searchTour()
     return render_template("tour_search.html", rows=rows)
-
-@app.route('/api/search_invoice')
-def searchInvoice():
-    rows = dao.searchInvoice()
-    return render_template("invoice_search.html", rows=rows)
-
-@app.route('/api/search_payment')
-def searchPayment():
-    rows = dao.searchPayment()
-    return render_template("payment_search.html", rows=rows)
 
 @app.route('/api/search_tour/<tourID>')
 def getMember(tourID):
@@ -42,11 +33,15 @@ def getMember(tourID):
         data = dao.getTourDetail(tourID)
         return render_template("tour_detail.html", data=data,countrys=COUNTRYS, nations=NATIONS, provinces=PROVINCES)
 
-@app.route('/api/temp/<tourID>')
-def temp(tourID):
+@app.route('/api/new_tour')
+def newTour():
     data = []
-    # data = dao.getTour(tourID)
-    return render_template("company_detail.html", data=data)
+    return render_template("tour_detail.html", data=data, countrys=COUNTRYS, nations=NATIONS, provinces=PROVINCES)
+
+@app.route('/api/new_company')
+def newCompany():
+    data = []
+    return render_template("company_detail.html", data=data, provinces=PROVINCES, types=COMPANY_TYPES)
 
 @app.route('/api/update_tour',methods = ['POST'])
 def createupdate_tour():
@@ -65,17 +60,38 @@ def createupdate_company():
     data =  request.get_json()
     # issueDate = request.form['password']
     print(data)
-    if(data["company_id"]==""):
-        print("new")
+    if(data["COMPANY_ID"]==""):
+        dao.newCompany(data)
     else:
         print("update")
     # print(issueDate)
     return json.dumps({'status':'OK','user':data})
 
+#  Tour member ------------------------
+
+@app.route('/api/search_invoice')
+def searchInvoice():
+    rows = dao.searchInvoice()
+    return render_template("invoice_search.html", rows=rows)
+
+@app.route('/api/search_payment')
+def searchPayment():
+    rows = dao.searchPayment()
+    return render_template("payment_search.html", rows=rows)
+
 @app.route('/api/search_invoice/<invoiceNo>')
 def getInvoice(invoiceNo):
-    data = []
-    return render_template("invoice_detail.html",data=data)
+    invoiceNo = invoiceNo.replace("(", "")
+    invoiceNo = invoiceNo.replace(")", "")
+    rev = "0"
+    if("REV" in invoiceNo):
+        temp = invoiceNo.split("REV")
+        invoiceNo = temp[0]
+        rev = temp[1]
+    else:
+        rev = "0"
+    data,rows = dao.getInvoiceDetail(invoiceNo,rev)
+    return render_template("invoice_detail.html",data=data,rows=rows)
 
 #  payment_no = No_Type
 @app.route('/api/search_payment/<paymentNo>')

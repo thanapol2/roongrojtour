@@ -1,22 +1,3 @@
-// $(function(){
-// 	$('#submit').click(function(){
-// 		$.ajax({
-// 			url: '/api/update_tour',
-// 			// data: formData
-// 			data: JSON.stringify({"name_th" : $('#name_th').val()}),
-// 			type: 'POST',
-// 			processData: false,
-// 			contentType: 'application/json; charset=UTF-8',
-// 			success: function(response){
-// 				console.log(response);
-// 			},
-// 			error: function(error){
-// 				console.log(error);
-// 			}
-// 		});
-// 	});
-// });
-
 function clickSubmit(){
 	var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
 	var company_id = document.getElementById("company_id").textContent
@@ -35,26 +16,21 @@ function clickSubmit(){
 
 	
 
-	var json = JSON.stringify({"company_id" :company_id,
-		"name_th" :name_th,
-		"name_en" :name_en,
-		"tax_id" :tax_id,
-		"company_type" :company_type,
-		"email" :email,
-		"tel" :tel,
-		"address" : address,
-		"province" : province,
-		"post" :post,
-		"detail" :detail})
+	var json = JSON.stringify({"COMPANY_ID" :company_id,
+		"THAI_NAME" :name_th,
+		"ENG_NAME" :name_en,
+		"TAX_ID" :tax_id,
+		"COMPANY_TYPE" :company_type,
+		"EMAIL" :email,
+		"TEL_NO" :tel,
+		"ADDRESS" : address,
+		"PROVINCE" : province,
+		"POST_NO" :post,
+		"REMARK" :detail})
 
 	xmlhttp.open("POST", "/api/update_company")
 	xmlhttp.setRequestHeader("Content-Type", "application/json ; charset=UTF-8" )
 	xmlhttp.send(json)
 }
-function changeTittle() {
-    var e = document.getElementById("title_th");
-    var title_th = e.options[e.selectedIndex].value;
-    // var title_en = document.getElementById('title_en');
-	document.getElementById("title_en").value = "Ms.";
-}
+
 
