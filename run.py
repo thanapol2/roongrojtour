@@ -16,6 +16,8 @@ PROVINCES = config.PROVINCES
 COMPANY_TYPES = config.COMPANY_TYPES
 BANKS = config.BANKS
 PAYMENT_TYPES = config.PAYMENT_TYPES
+RT_TYPE = config.RT_TYPE
+RTS_TYPE = config.RTS_TYPE
 
 #  Tour member ------------------------
 @app.route('/api/search_tour')
@@ -83,6 +85,7 @@ def searchPayment():
 def getInvoice(invoiceNo):
     invoiceNo = invoiceNo.replace("(", "")
     invoiceNo = invoiceNo.replace(")", "")
+    invoiceTypes = []
     rev = "0"
     if("REV" in invoiceNo):
         temp = invoiceNo.split("REV")
@@ -90,8 +93,12 @@ def getInvoice(invoiceNo):
         rev = temp[1]
     else:
         rev = "0"
+    if("RTS" in invoiceNo):
+        invoiceTypes = RTS_TYPE
+    else:
+        invoiceTypes = RT_TYPE
     data,rows = dao.getInvoiceDetail(invoiceNo,rev)
-    return render_template("invoice_detail.html",data=data,rows=rows)
+    return render_template("invoice_detail.html",data=data,rows=rows,invoiceTypes=invoiceTypes)
 
 #  payment_no = No_Type
 @app.route('/api/search_payment/<paymentNo>')

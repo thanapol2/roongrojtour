@@ -31,7 +31,7 @@ $(document).ready(function() {
       var type = $('#dropdown1').val()
       var result = true
       var startDate = new Date(data[3]);
-      if (data[0].search(type) == 0){
+      if (data[1].search(type) == 0){
         result = true;
       }else{
         result = false;

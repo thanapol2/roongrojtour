@@ -24,6 +24,8 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
     <!-- data table style script -->
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
 
     <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>  -->
     <script type="text/javascript" src="{{ url_for('static', filename='js/invoice_detail.js') }}"></script>
@@ -197,23 +199,23 @@
                                         </div>
                                         <div class="col-md-2">
                                             <label class="form-control-label">Type</label>
-                                            <select name="invoiceType" class="form-control">
+                                            <select id="invoiceType" class="form-control">
                                                 <option value="" disabled selected>Select</option>
                                                 {% for invoiceType in invoiceTypes %}
-                                                <option value={{invoiceType}}>{{invoiceType}}</option>
+                                                <option value="{{invoiceType}}">{{invoiceType}}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>
                                         <div class="col-md-1">
                                             <label class="form-control-label">QTY</label>
-                                            <input id="qty" type="number" class="form-control form-control-sm" placeholder="0">
+                                            <input id="qty" type="number" class="form-control form-control-sm" placeholder="0" onkeyup="calSumRow()">
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-control-label">price</label>
-                                            <input id="price" type="number" class="form-control form-control-sm" placeholder="0">
+                                            <label class="form-control-label">Price</label>
+                                            <input id="price" type="number" class="form-control form-control-sm" placeholder="0" onkeyup="calSumRow()">
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-control-label">price</label>
+                                            <label class="form-control-label">Sum Price</label>
                                             <input id="sum" disabled="" type="number" class="form-control form-control-sm" placeholder="0">
                                         </div>                                        
                                     </div>
@@ -221,7 +223,7 @@
                                         <div class="col-md-9">
                                         </div>
                                         <div class="col-md-3">
-                                            <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" id="add">Add</button>
+                                            <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" id="addBtn">Add</button>
                                             <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" id="clearDetail">clear input</button>
                                         </div>
                                     </div>
@@ -231,12 +233,12 @@
                                             <table id="example" class="table table-striped table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th></th>
-                                                        <th>Service</th>
-                                                        <th>Type</th>
-                                                        <th>QTY/Adult</th>
-                                                        <th>Price</th>
-                                                        <th>Total (THB)</th>
+                                                        <th style='width: 9%'></th>
+                                                        <th style='width: 47%'>Service</th>
+                                                        <th style='width: 15%'>Type</th>
+                                                        <th style='width: 5%'>QTY/Adult</th>
+                                                        <th style='width: 12%'>Price</th>
+                                                        <th style='width: 12%'>Total (THB)</th>
                                                     </tr>
                                                 </thead>
                                                 {% for row in rows %}
@@ -290,7 +292,7 @@
                                                 </div>
                                                 <div class="col-md-9">
                                                     <div class="input-group">
-                                                        <input id="sum" type="text" class="form-control form-control-sm" disabled="" placeholder="0.00" value= '{{ data["TOTAL_ALL"] }}'><span class="input-group-addon">Bath</span>
+                                                        <input id="totalAll" type="text" class="form-control form-control-sm" disabled="" placeholder="0.00" value= '{{ data["TOTAL_ALL"] }}'><span class="input-group-addon">Bath</span>
                                                     </div>
                                                 </div>   
                                             </div>
