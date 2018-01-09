@@ -30,7 +30,7 @@ $(document).ready(function() {
       var max = new Date($('#endDate').val())
       var type = $('#dropdown1').val()
       var result = true
-      var startDate = new Date(data[4]);
+      var startDate = new Date(data[5]);
       if (data[0].search(type) == 0){
         result = true;
       }else{

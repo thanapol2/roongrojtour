@@ -32,5 +32,3 @@ function clickSubmit(){
 	xmlhttp.setRequestHeader("Content-Type", "application/json ; charset=UTF-8" )
 	xmlhttp.send(json)
 }
-
-

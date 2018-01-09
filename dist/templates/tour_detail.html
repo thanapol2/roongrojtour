@@ -101,7 +101,7 @@
                                             <label class="form-control-label">ชื่อ - นามสกุลภาษาไทย</label>
                                             <div class="row">
                                                 <div class="col-sm-2 select">
-                                                    <select id="title_th" class="form-control" placeholder="select" onchange="changeTittle()">
+                                                    <select id="title_th" class="form-control" placeholder="select" onchange="changeTittle()" required>
                                                         <!-- <option>select</option> -->
                                                         <option value="" disabled selected>คำนำหน้า</option>
                                                         <option value="นาย">นาย</option>
@@ -112,10 +112,10 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-sm-5">
-                                                    <input id="name_th" type="text" placeholder="ชือ (ภาษาไทย)" class="form-control form-control-sm" value= '{{ data["THAI_NAME"] }}' >
+                                                    <input id="name_th" type="text" placeholder="ชือ (ภาษาไทย)" class="form-control form-control-sm" value= '{{ data["THAI_NAME"] }}' required>
                                                 </div>
                                                 <div class="col-sm-5">
-                                                    <input id="surname_th" type="text" placeholder="นามสกุล (ภาษาไทย)" class="form-control form-control-sm" value= '{{ data["THAI_SURNAME"] }}'>
+                                                    <input id="surname_th" type="text" placeholder="นามสกุล (ภาษาไทย)" class="form-control form-control-sm" value= '{{ data["THAI_SURNAME"] }}' required>
                                                 </div>
                                             </div>
                                         </div>
@@ -135,10 +135,10 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-sm-5">
-                                                    <input id="name_en" type="text" placeholder="Name (English)" class="form-control form-control-sm" value= '{{ data["ENG_NAME"] }}'>
+                                                    <input id="name_en" type="text" placeholder="Name (English)" class="form-control form-control-sm" value= '{{ data["ENG_NAME"] }}' required>
                                                 </div>
                                                 <div class="col-sm-5">
-                                                    <input id="surname_en" type="text" placeholder="Surname (English)" class="form-control form-control-sm" value= '{{ data["ENG_SURNAME"] }}'>
+                                                    <input id="surname_en" type="text" placeholder="Surname (English)" class="form-control form-control-sm" value= '{{ data["ENG_SURNAME"] }}' required>
                                                 </div>
                                             </div>
                                         </div>

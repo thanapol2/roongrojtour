@@ -1,7 +1,9 @@
 
 $(document).ready(function() {
   var table = $('#example').DataTable({
-    "bSort" : false
+    "bSort" : false,
+    "bFilter" : false,
+    "bPaginate" : false
   });
   $('#addBtn').on( 'click', function () {
     table.row.add( [
@@ -32,3 +34,4 @@ function calSumRow() {
   var price = document.getElementById("price").value;
   document.getElementById("sum").value = price*qty;
 }
+

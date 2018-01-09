@@ -402,3 +402,39 @@ def newCompany(data):
     finally:
         cur.close()
         conn.close()
+
+def updateCompany(data):
+    conn = cx_Oracle.connect(USER, PASS, DB_URL)
+    cur = conn.cursor()
+    sql = 	"UPDATE COMPANY_MASTER		    "\
+			"SET		THAI_NAME    =		"\
+			"'"+data['THAI_NAME']+"',       "\
+			"		ENG_NAME	 =		    "\
+			"'"+data['ENG_NAME']+"',        "\
+			"		ADDRESS		 =		    "\
+			"'"+data['ADDRESS']+"',         "\
+			"		POST_NO		 =		    "\
+			"'"+data['POST_NO']+"',         "\
+			"		PROVINCE	 =		    "\
+			"'"+data['PROVINCE']+"',        "\
+			"		TAX_ID		 =		    "\
+			"'"+data['TAX_ID']+"',          "\
+			"		EMAIL		 =		    "\
+			"'"+data['EMAIL']+"',           "\
+			"		TEL_NO		 =		    "\
+			"'"+data['TEL_NO']+"',          "\
+			"		COMPANY_TYPE =		    "\
+			"'"+data['COMPANY_TYPE']+"',    "\
+			"		REMARK		 =		    "\
+			"'"+data['REMARK']+"'           "\
+			"WHERE COMPANY_ID	 =		    "\
+			"'"+data['COMPANY_ID']+"'       "
+    print(sql)
+    try:
+        cur.execute(sql)
+        conn.commit()
+    except cx_Oracle.DatabaseError as e:
+        conn.rollback()
+    finally:
+        cur.close()
+        conn.close()

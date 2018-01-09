@@ -66,6 +66,7 @@ def createupdate_company():
         dao.newCompany(data)
     else:
         print("update")
+        dao.updateCompany(data)
     # print(issueDate)
     return json.dumps({'status':'OK','user':data})
 
