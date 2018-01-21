@@ -26,7 +26,7 @@
     <!-- data table style script -->
 
     <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>  -->
-    <script type="text/javascript" src="{{ url_for('static', filename='js/invoice_detail.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/payment_detail.js') }}"></script>
 
 
 </head>
@@ -69,7 +69,7 @@
         <div class="breadcrumb-holder container-fluid">
             <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item active"><a href="/api/payment_invoice">Payment Search</a></li>
+                <li class="breadcrumb-item active"><a href="/api/search_payment">Payment Search</a></li>
                 <li class="breadcrumb-item active">Payment Detail</li>
             </ul>
         </div>
@@ -92,157 +92,163 @@
                                 </div> 
                             </div>
                             <div class="card-body">
-                                <form>
+                                <form id="input_form">
                                     <div class="form-group row">
                                         <!-- Payment Head detail -->
                                         <div class="col-md-3">
-                                             <div class="form-group">
-                                                <label class="form-control-label">Sale</label>
-                                                <input id="saleID" type="text" class="form-control form-control-sm" placeholder="รหัส sales" value= '{{ data["SALES_ID"] }}'>
+                                           <div class="form-group">
+                                            <label class="form-control-label">Sale</label>
+                                            <input id="saleID" type="text" class="form-control form-control-sm" placeholder="รหัส sales" value= '{{ data["SALES_ID"] }}' required>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label">Sale</label>
+                                            <input id="saleName" type="text" class="form-control form-control-sm" placeholder="ชื่อ-นามสกุล sales" value= '{{ data["SALES_NAME"] }}' required>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                    </div> 
+                                </div>                                                
+                                <div class="line"></div>
+                                <!-- Customer Detail -->
+                                <h3 class="h4 form-control-label">ข้อมูลลูกค้า</h3>
+                                <div class="form-group row">
+                                    <div class="col-md-3">
+                                        <label class="form-control-label">Tour ID</label>
+                                        <input id="tourID" type="text" class="form-control form-control-sm" disabled="" value= '{{ data["CUSTOMER_ID"] }}'>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-control-label">ชื่อลูกค้า</label>
+                                        <input id="tourName" type="text" class="form-control form-control-sm" placeholder="Customer Name" value= '{{ data["CUSTOMER_NAME"] }}' required>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <br>
+                                        <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" id="searchCustomer">ค้นหาลูกค้า</button>
+                                        <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" id="clearHead">clear & unlock</button>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-9">
+                                        <label class="form-control-label">Address</label>
+                                        <input id="ADDRESS" type="text" class="form-control form-control-sm" placeholder="address" value= '{{ data["ADDRESS"] }}'>
+                                    </div>                                 
+                                </div>
+                                <div class="line"></div>
+                                <!-- Invoice Detail -->
+                                <h3 class="h4 form-control-label">รายละเอียดการชำระเงิน</h3>
+                                <br>
+                                <div class="form-group row">
+                                    <div class="col-md-2">
+                                        <label>ประเภทใบเสร็จ : </label>                                            
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label class="radio-inline">
+                                            <input id="paymentVat" type="radio" checked="" value="option1" name="optionsRadios"> ใบกำกับภาษี
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input id="paymentNoVat" type="radio" checked="" value="option1" name="optionsRadios"> ใบเสร็จรับเงิน
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-9">
+                                        <label class="form-control-label">detail</label>
+                                        <input id="detail" type="text" class="form-control form-control-sm" placeholder="address" value= '{{ data["DETAIL"] }}' required>
+                                    </div>                                 
+                                </div>
+                                <div class="line"></div>
+                                <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label">วิธีการจ่ายเงิน</label>
+                                            <select name="paymentType" class="form-control">
+                                                <option value="" disabled selected>Select</option>
+                                                {% for paymentType in paymentTypes %}
+                                                <option value='{{ paymentType["VALUE"] }}'>{{paymentType["PAYMENT_NAME"]}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-control-label">วันที่จ่ายเงิน</label>
+                                        <input id="paymentDate" type="date" class="form-control form-control-sm" value= '{{ data["PAYMENT_DATE"] }}'>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-control-label">เช็คธนาคาร</label>
+                                            <select name="bank" class="form-control">
+                                                <option value="" disabled selected>Select</option>
+                                                {% for bank in banks %}
+                                                <option value={{bank}}>{{bank}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-control-label">เลขที่เช็ค</label>
+                                        <input id="chequeNo" type="text" class="form-control form-control-sm" value= '{{ data["CHEQUE_NO"] }}'>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-control-label">ลงวันที่เช็ค</label>
+                                        <input id="chequeDate" type="date" class="form-control form-control-sm" value= '{{ data["CHEQUE_DATE"] }}'>
+                                    </div>
+                                </div>
+                                <div class="line"></div>
+                                <div class="form-group row">
+                                    <div class="col-md-6">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input id="autoVat" type="checkbox" value="" checked="" class="checkbox-template">
+                                        <label for="checkboxCustom2">Auto Vat</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label class="form-control-label">Vat</label>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label class="form-control-label">Sale</label>
-                                                <input id="saleName" type="text" class="form-control form-control-sm" placeholder="ชื่อ-นามสกุล sales" value= '{{ data["SALES_NAME"] }}'>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3">
-                                        </div> 
-                                    </div>                                                
-                                    <div class="line"></div>
-                                    <!-- Customer Detail -->
-                                    <h3 class="h4 form-control-label">ข้อมูลลูกค้า</h3>
-                                    <div class="form-group row">
-                                        <div class="col-md-3">
-                                            <label class="form-control-label">Tour ID</label>
-                                            <input id="tourID" type="text" class="form-control form-control-sm" disabled="" value= '{{ data["CUSTOMER_ID"] }}'>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="form-control-label">ชื่อลูกค้า</label>
-                                            <input id="tourName" type="text" class="form-control form-control-sm" placeholder="Customer Name" value= '{{ data["CUSTOMER_NAME"] }}'>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <br>
-                                            <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" id="searchCustomer">ค้นหาลูกค้า</button>
-                                            <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" id="clearHead">clear & unlock</button>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-md-9">
-                                            <label class="form-control-label">Address</label>
-                                            <input id="ADDRESS" type="text" class="form-control form-control-sm" placeholder="address" value= '{{ data["ADDRESS"] }}'>
-                                        </div>                                 
-                                    </div>
-                                    <div class="line"></div>
-                                    <!-- Invoice Detail -->
-                                    <h3 class="h4 form-control-label">รายละเอียดการชำระเงิน</h3>
-                                    <br>
-                                    <div class="form-group row">
-                                        <div class="col-md-2">
-                                            <label>ประเภทใบเสร็จ : </label>                                            
-                                        </div>
-                                        <div class="col-md-10">
-                                            <label class="radio-inline">
-                                                <input id="paymentVat" type="radio" checked="" value="option1" name="optionsRadios"> ใบกำกับภาษี
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input id="paymentNoVat" type="radio" checked="" value="option1" name="optionsRadios"> ใบเสร็จรับเงิน
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-md-9">
-                                            <label class="form-control-label">detail</label>
-                                            <input id="detail" type="text" class="form-control form-control-sm" placeholder="address" value= '{{ data["DETAIL"] }}'>
-                                        </div>                                 
-                                    </div>
-                                    <div class="line"></div>
-                                    <div class="form-group row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="form-control-label">วิธีการจ่ายเงิน</label>
-                                                <select name="paymentType" class="form-control">
-                                                    <option value="" disabled selected>Select</option>
-                                                    {% for paymentType in paymentTypes %}
-                                                    <option value='{{ paymentType["VALUE"] }}'>{{paymentType["PAYMENT_NAME"]}}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label class="form-control-label">วันที่จ่ายเงิน</label>
-                                            <input id="paymentDate" type="date" class="form-control form-control-sm" value= '{{ data["PAYMENT_DATE"] }}'>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label class="form-control-label">เช็คธนาคาร</label>
-                                                <select name="bank" class="form-control">
-                                                    <option value="" disabled selected>Select</option>
-                                                    {% for bank in banks %}
-                                                    <option value={{bank}}>{{bank}}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label class="form-control-label">เลขที่เช็ค</label>
-                                            <input id="chequeNo" type="text" class="form-control form-control-sm" value= '{{ data["CHEQUE_NO"] }}'>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label class="form-control-label">ลงวันที่เช็ค</label>
-                                            <input id="chequeDate" type="date" class="form-control form-control-sm" value= '{{ data["CHEQUE_DATE"] }}'>
-                                        </div>
-                                    </div>
-                                    <div class="line"></div>
-                                    <div class="form-group row">
-                                        <div class="col-md-6">
-                                        </div>
-                                        <div class="col-md-2">
-                                            <input id="autoVat" type="checkbox" value="" checked="" class="checkbox-template">
-                                            <label for="checkboxCustom2">Auto Vat</label>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="row">
-                                                <div class="col-md-3">
-                                                    <label class="form-control-label">Vat</label>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input id="vat" type="text" class="form-control form-control-sm" disabled="" placeholder="0.00" value= '{{ data["VAT"] }}'><span class="input-group-addon">Bath</span>
                                                 </div>
-                                                <div class="col-md-9">
-                                                    <div class="input-group">
-                                                        <input id="vat" type="text" class="form-control form-control-sm" disabled="" placeholder="0.00" value= '{{ data["VAT"] }}'><span class="input-group-addon">Bath</span>
-                                                    </div>
-                                                </div>   
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-md-8">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="row">
-                                                <div class="col-md-3">
-                                                    <label class="form-control-label">Summary</label>
-                                                </div>
-                                                <div class="col-md-9">
-                                                    <div class="input-group">
-                                                        <input id="totalAll" type="text" class="form-control form-control-sm" disabled="" placeholder="0.00" value= '{{ data["TOTAL_ALL"] }}'><span class="input-group-addon">Bath</span>
-                                                    </div>
-                                                </div>   
-                                            </div>
+                                            </div>   
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <div class="col-md-8">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label class="form-control-label">Summary</label>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input id="totalAll" type="text" class="form-control form-control-sm" disabled="" placeholder="0.00" value= '{{ data["TOTAL_ALL"] }}' required><span class="input-group-addon">Bath</span>
+                                                </div>
+                                            </div>   
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-10">
+                                        <button type="submit" class="btn btn-primary" id="submit">Save changes</button>
+                                        <button type="reset" class="btn btn-secondary">Clear</button>
+                                    </div>
+                                </div>
                             </div>
-                        </form>
-                    </div>
-                </div>                        
-            </div>
-            <!-- Left form  -->
+                        </div>
+                    </form>
+                </div>
+            </div>                        
+        </div>
+        <!-- Left form  -->
 
-        </section>
-    </div>
+    </section>
+</div>
 
 </body>
 </html>

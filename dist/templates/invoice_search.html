@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
 
-        <!-- Bootstrap CSS-->
+    <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
     <!-- Fontastic Custom icon font-->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/fontastic.css') }}">
@@ -26,12 +26,12 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
     
-	<!-- data table style script -->
+    <!-- data table style script -->
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
 
 
-	<script type="text/javascript" src="{{ url_for('static', filename='js/invoice_search.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/invoice_search.js') }}"></script>
 
 </head>
 <body>
@@ -58,7 +58,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="search_payment">Payment</a>
                 </li>
-			</ul>
+            </ul>
                 <!-- <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -104,11 +104,13 @@
                 </div>
                 <div class="col-4">
                     <div class="form-group">
+                        <button type="button" class="btn btn-info btn-sm" id="RTinvoice" onclick="clickNewRT()">Create RTinvoice</button>
+                        <button type="button" class="btn btn-info btn-sm" id="RTSinvoice" onclick="clickNewRTS()">Create RTSinvoice</button>
                     </div>              
                 </div>
             </div>
             <table id="example" class="table table-striped table-bordered table-responsive table-hover" cellspacing="0" width="100%">
-             <thead>
+               <thead>
                 <th></th>
                 <th>Invoice No</th>
                 <th>ชื่อลูกค้า</th>

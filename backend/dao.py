@@ -134,6 +134,33 @@ def getTourDetail(tourID):
         result['PROVINCE'] = row[19]
         result['POST_NO'] = row[20]
         result['TEL'] = row[21]
+
+    sql = "select TOUR_ID									"\
+		"		,NO_PIG 									"\
+		"		,NO_MEAT									"\
+		"		,NO_CHICKEN									"\
+		"		,HALAL										"\
+		"		,MANGSA 									"\
+		"		,VEGETARIAN									"\
+		"		,ISLAM										"\
+		"		,NO_SEAFOOD									"\
+		"		,NO_SHRIMP									"\
+		"		,NO_FISH									"\
+		"from EAT											"\
+	    "where tour_id =  '" + tourID +"'"
+    cur.execute(sql)
+    rows = cur.fetchall()
+    for row in rows:
+        result['NO_PIG'] = row[0]
+        result['NO_MEAT'] = row[1]
+        result['NO_CHICKEN'] = row[2]
+        result['HALAL'] = row[3]
+        result['MANGSA'] = row[4]
+        result['VEGETARIAN'] = row[5]
+        result['ISLAM'] = row[6]
+        result['NO_SEAFOOD'] = row[7]
+        result['NO_SHRIMP'] = row[8]
+        result['NO_FISH'] = row[9]
     cur.close()
     conn.close()
     return result

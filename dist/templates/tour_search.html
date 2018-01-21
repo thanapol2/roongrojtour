@@ -30,7 +30,7 @@
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
 
     <!-- Javascript files-->
-    <script type="text/javascript" src="{{ url_for('static', filename='js/tour_search.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/tourmember/tour_search.js') }}"></script>
 
 </head>
 <body>
@@ -64,113 +64,56 @@
     <br /><br />
 
     <div class="container">           
-       <div class="row">
-          <div class="col-6 col-sm-3">
-             <h3>ค้นหาลูกค้า</h3>
-         </div>           
-     </div>
- </div>
-
- <br />
- <hr />
- <div class="container">
-    <div class="form-group row">
-        <label class="col-sm-2 form-control-label">ประเภทของลูกค้า:</label>
-        <div class="col-sm-4">
-            <select class="form-control-sm" id="dropdown1">
-                <option value="">All member</option>
-                <option value="tourmember">Tourmember</option>
-                <option value="Company">Company</option>
-                <option value="Hotel">Hotel</option>
-                <option value="Show">Show</option>
-                <option value="Other">Other</option>
-                <option value="None">ไม่ได้เลือก Type</option>
-            </select> 
+        <div class="row">
+            <div class="col-6 col-sm-3">
+                <h3>ค้นหาลูกค้า</h3>
+            </div>           
         </div>
-        <div class= col-sm-2>
-        </div>
-        <div class= col-sm-4>
-            <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" id="newTour" onclick="clickNewTour()">New Tourmember</button>
-            <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" id="newCompany" onclick="clickNewCompany()">New Company</button>
-        </div>
-    </div>                	      
-    <table id="example" class="display" width="100%" cellspacing="0">
-        <thead>
-            <th>Tour_id</th>
-            <th>Name - Surname(TH)</th>
-            <th>Name - Surname(EN)</th>
-            <th>Type</th>
-            <th>View</th>
-        </thead>
+    </div>
 
-        {% for row in rows %}
-        <tr>
-            <td>{{row[0]}}</td>
-            <td>{{row[1]}}</td>
-            <td>{{row[2]}}</td>
-            <td>{{row[3]}}</td>
-            <td></td>
-        </tr>
-        {% endfor %}
-    </table>             
-</div>
+    <br />
+    <hr />
+    <div class="container">
+        <div class="form-group row">
+            <label class="col-sm-2 form-control-label">ประเภทของลูกค้า:</label>
+            <div class="col-sm-4">
+                <select class="form-control-sm" id="dropdown1">
+                    <option value="">All member</option>
+                    <option value="tourmember">Tourmember</option>
+                    <option value="Company">Company</option>
+                    <option value="Hotel">Hotel</option>
+                    <option value="Show">Show</option>
+                    <option value="Other">Other</option>
+                    <option value="None">ไม่ได้เลือก Type</option>
+                </select> 
+            </div>
+            <div class= col-sm-2>
+            </div>
+            <div class= col-sm-4>
+                <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" id="newTour" onclick="clickNewTour()">New Tourmember</button>
+                <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" id="newCompany" onclick="clickNewCompany()">New Company</button>
+            </div>
+        </div>                	      
+        <table id="example" class="display" width="100%" cellspacing="0">
+            <thead>
+                <th>Tour_id</th>
+                <th>Name - Surname(TH)</th>
+                <th>Name - Surname(EN)</th>
+                <th>Type</th>
+                <th>View</th>
+            </thead>
 
-<!--         	<div class="modal fade" id="myModal">
-        		<div class="modal-dialog">
-        			<div class="modal-content">
-        				<div class="modal-header">
-        					<h5 class="modal-title" id="exampleModalLabel">Edit</h5>
-        					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        						<span aria-hidden="true">&times;</span>
-        					</button>	      
-        				</div>
-        				<div class="modal-body">
-        					<form>
-        						<div class="form-group">
-        							<label for="txtDate" class="form-control-label">วันที่ยืม</label>
-        							<input type="date" class="form-control" id="txtDate"/>
-        						</div>
-        						<div class="form-group">
-        							<label for="txtName" class="form-control-label">ชื่อผู้ยืม</label>
-        							<input type="text" class="form-control" id="txtName"/>
-        						</div>
-        						<div class="form-group">
-        							<label for="txtSurname" class="form-control-label">นามสกุล</label>
-        							<input type="text" class="form-control" id="txtSurname"/>
-        						</div>
-        						<div class="form-group">
-        							<label for="sFaculty" class="form-control-label">สาขา</label>
-        							<select class="form-control" id="sFaculty">
-        								<option value="IT">IT</option>
-        								<option value="CS">CS</option>
-        							</select>
-        						</div>
-        						<div class="form-group">
-        							<label for="sClass" class="form-control-label">ชั้นปี</label>
-        							<select class="form-control" id="sClass">
-        								<option value="1">1</option>
-        								<option value="2">2</option>
-        								<option value="3">3</option>
-        								<option value="4">4</option>
-        							</select>
-        						</div>
-        						<div class="form-group">
-        							<label for="txtSerial" class="form-control-label">ซีเรียล</label>
-        							<input type="text" class="form-control" id="txtSerial"/>
-        						</div>
-        						<div class="form-group">
-        							<label for="txtEquipment" class="form-control-label">อุปกรณ์</label>
-        							<input type="text" class="form-control" id="txtEquipment"/>
-        						</div>		        	
-        					</form>
-        				</div>
-        				<div class="modal-footer">
-        					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        					<button type="button" class="btn btn-primary">Save changes</button>
-        				</div>
-        			</div><!-- /.modal-content -->
-        		</div>
-        	</div>
+            {% for row in rows %}
+            <tr>
+                <td>{{row[0]}}</td>
+                <td>{{row[1]}}</td>
+                <td>{{row[2]}}</td>
+                <td>{{row[3]}}</td>
+                <td></td>
+            </tr>
+            {% endfor %}
+        </table>             
+    </div>
 
-        </body>
-        </html>
+</body>
+</html>

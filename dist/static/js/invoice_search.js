@@ -51,4 +51,9 @@ $(document).ready(function() {
   // Event listener to the two range filtering inputs to redraw on input
 });
 
-
+function clickNewRT(){
+  document.location.href = "/api/new_invoice/rt"
+}
+function clickNewRTS(){
+  document.location.href = "/api/new_invoice/rts"
+}

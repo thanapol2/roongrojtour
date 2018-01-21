@@ -22,7 +22,17 @@
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-    <script type="text/javascript" src="{{ url_for('static', filename='js/company_detail.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/tourmember/company_detail.js') }}"></script>
+
+    {% if data %}
+    <script type="text/javascript">
+        function setData() {
+            document.getElementById('company_type').value= "{{ data["COMPANY_TYPE"] }}"
+            document.getElementById('province').value= "{{ data["PROVINCE"] }}"
+        }
+        window.onload = setData;
+    </script>
+    {% endif %}
 
 
 </head>
@@ -74,7 +84,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <!-- Left form  -->
-                    <div class="col-lg-8">
+                    <div class="col-lg-7">
                         <div class="card">
                             <div class="card-header d-flex align-items-center">
                                 <div class="col-sm-4">
@@ -90,7 +100,7 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form>
+                                <form id="input_form">
                                     <!-- ++++++++++++++++++++++TH NAME++++++++++++++++++++++ -->
                                     <div class="form-group row">
                                         <div class="col-sm-12">
@@ -116,7 +126,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <label class="form-control-label">หมวดหมู่บริษัท</label>
-                                            <select id="company_type" class="form-control">
+                                            <select id="company_type" class="form-control" required>
                                                 <option value="" disabled selected>Select</option>
                                                 {% for type in types %}
                                                 <option value={{type}}>{{type}}</option>
@@ -158,7 +168,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-control-label">จังหวัด</label>
-                                            <select id="province" class="form-control">
+                                            <select id="province" class="form-control" required>
                                                 <option value="" disabled selected>Select</option>
                                                 {% for province in provinces %}
                                                 <option value={{province}}>{{province}}</option>
@@ -178,8 +188,8 @@
                                 </from>
                                 <div class="form-group row">
                                     <div class="col-sm-6">
-                                        <button type="button" class="btn btn-primary" id="submit" onclick="clickSubmit()">Save changes</button>
-                                        <button type="cancel" class="btn btn-secondary">Cancel</button>
+                                        <button type="submit" class="btn btn-primary" id="submit">Save changes</button>
+                                        <!-- <button type="reset" class="btn btn-secondary" id="reset">Clear</button> -->
                                     </div>
                                 </div>
                                 <!-- detail -->
@@ -187,7 +197,7 @@
                         </div>
                     </div>
                     <!-- Rigth column -->
-                    <div class="col-lg-4">
+                    <div class="col-lg-5">
                         <div class="card">
                             <div class="card-header d-flex align-items-center">
                                 <h3 class="h4">รูปภาพ</h3>   
@@ -195,24 +205,17 @@
                             <div class="card-body">
                                 <form>
                                     <div class="form-group row">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                 <div class="input-group col-md-12">
-                                                    <input type="text" class="form-control"><span class="input-group-btn">
-                                                        <button id="browse" type="button" class="btn btn-primary">Browse..</button></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                 <div class="input-group col-md-12">
-                                                    <div class="image has-shadow"><img src="{{ url_for('static',filename='band.png')}}" alt="..." class="img-fluid"></div>
-                                                </div>
-                                            </div>
+                                        <div class="col-md-12">
+                                            <label for="inputFile">File input</label>
+                                            <input type="file" id="inputFile" accept=".jpg,.gif,.png">
                                         </div>
-                                        <div class="line"> </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-12">
+                                            <div class="image has-shadow"><img src="{{ url_for('static',filename='band.png')}}" alt="..." class="img-fluid"></div>
+                                        </div>
+                                    </div>
+                                    <div class="line"> </div>
                                 </form>
                             </div>
                         </div>

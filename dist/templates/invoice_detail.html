@@ -94,7 +94,7 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form>
+                                <form id="input_form">
                                     <div class="form-group row">
                                         <div class="col-sm-9">
                                         </div>
@@ -116,20 +116,20 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label class="form-control-label">Sale</label>
-                                                <input id="saleName" type="text" class="form-control form-control-sm" placeholder="ชื่อ-นามสกุล sales" value= '{{ data["SALES_NAME"] }}'>
+                                                <input id="saleName" type="text" class="form-control form-control-sm" placeholder="ชื่อ-นามสกุล sales" value= '{{ data["SALES_NAME"] }}' required>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label class="form-control-label">Issue Date</label>
-                                                <input id="issueDate" type="date" class="form-control form-control-sm" value= '{{ data["ISSUE_DATE"] }}'>
+                                                <input id="issueDate" type="date" class="form-control form-control-sm" value= '{{ data["ISSUE_DATE"] }}' required>
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <label class="form-control-label">Due day</label>
-                                                <input id="due" type="number" class="form-control form-control-sm" value= '{{ data["DUE_DAY"] }}'>
-                                                <span class="help-block-none">กรอกระยะเวลา due day</span>
+                                                <input id="due" type="number" class="form-control form-control-sm" value= '{{ data["DUE_DAY"] }}' required>
+                                                <span class="help-block-none">กรอกระยะเวลา (วัน)</span>
                                             </div>
                                         </div> 
                                     </div>                                                
@@ -151,11 +151,11 @@
                                     <div class="form-group row">
                                         <div class="col-md-3">
                                             <label class="form-control-label">Tour ID</label>
-                                            <input id="tourID" type="text" class="form-control form-control-sm" disabled="" value= '{{ data["CUSTOMER_ID"] }}'>
+                                            <input id="tourID" type="text" class="form-control form-control-sm" disabled="" value= '{{ data["CUSTOMER_ID"] }}' >
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-control-label">ชื่อลูกค้า</label>
-                                            <input id="tourName" type="text" class="form-control form-control-sm" placeholder="Customer Name" value= '{{ data["CUSTOMER_NAME"] }}'>
+                                            <input id="tourName" type="text" class="form-control form-control-sm" placeholder="Customer Name" value= '{{ data["CUSTOMER_NAME"] }}' required>
                                         </div>
                                         <div class="col-md-3">
                                             <br>
@@ -174,7 +174,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <label class="form-control-label">EMAIL</label>
-                                            <input id="email" type="email" class="form-control form-control-sm" placeholder="EMAIL" value= '{{ data["EMAIL"] }}'>
+                                            <input id="email" type="text" class="form-control form-control-sm" placeholder="EMAIL" value= '{{ data["EMAIL"] }}'>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -223,14 +223,14 @@
                                         <div class="col-md-9">
                                         </div>
                                         <div class="col-md-3">
-                                            <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" id="addBtn">Add</button>
-                                            <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" id="clearDetail">clear input</button>
+                                            <button type="button" class="btn btn-info btn-sm" id="addBtn">Add</button>
+                                            <button type="button" class="btn btn-info btn-sm" id="clearDetail" onclick="clearInput()">clear input</button>
                                         </div>
                                     </div>
                                     <div class="line"></div>
                                     <div class="form-group row">
                                         <div class="col-md-12">
-                                            <table id="example" class="table table-striped table-hover">
+                                            <table id="tableDetail" class="table table-striped table-hover">
                                                 <thead>
                                                     <tr>
                                                         <th style='width: 9%'></th>
@@ -261,13 +261,13 @@
                                         </div>
                                         <div class="col-md-3">
                                             <label class="checkbox-inline">
-                                                <input id="vatCal" type="radio" checked="" value="option1" name="optionsRadios"> Vat Calculator
+                                                <input id="vatCal" type="radio" checked="" value="1" name="vatCalRadios" onclick="vatOptions(this)"> Vat Calculator
                                             </label>
                                             <label class="checkbox-inline">
-                                                <input id="adjustVat" type="radio" checked="" value="option1" name="optionsRadios"> Adjust Vat
+                                                <input id="adjustVat" type="radio" checked="" value="2" name="vatCalRadios" onclick="vatOptions(this)"> Adjust Vat
                                             </label>
                                             <label class="checkbox-inline">
-                                                <input id="noVat" type="radio" checked="" value="option1" name="optionsRadios"> No Vat
+                                                <input id="noVat" type="radio" checked="" value="3" name="vatCalRadios" onclick="vatOptions(this)"> No Vat
                                             </label>
                                         </div>
                                         <div class="col-md-4">
@@ -297,6 +297,12 @@
                                                     </div>
                                                 </div>   
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-10">
+                                            <button type="submit" class="btn btn-primary" id="submit">Save changes</button>
+                                            <button type="reset" class="btn btn-secondary">Clear</button>
                                         </div>
                                     </div>
                                 </div>

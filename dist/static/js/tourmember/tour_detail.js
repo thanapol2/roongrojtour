@@ -1,21 +1,9 @@
-// $(function(){
-// 	$('#submit').click(function(){
-// 		$.ajax({
-// 			url: '/api/update_tour',
-// 			// data: formData
-// 			data: JSON.stringify({"name_th" : $('#name_th').val()}),
-// 			type: 'POST',
-// 			processData: false,
-// 			contentType: 'application/json; charset=UTF-8',
-// 			success: function(response){
-// 				console.log(response);
-// 			},
-// 			error: function(error){
-// 				console.log(error);
-// 			}
-// 		});
-// 	});
-// });
+$(document).ready(function(){
+	$("#input_form").submit(function(e) {
+		e.preventDefault();
+		clickSubmit()
+	});
+});
 
 function clickSubmit(){
 	var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
@@ -90,37 +78,37 @@ function clickSubmit(){
 	if(document.getElementById("no_fish").checked){
 		no_fish = "Y"
 	}
-	var json = JSON.stringify({"tour_id" :tour_id,
-		"title_th" :title_th,
-		"name_th" :name_th,
-		"surname_th" :surname_th,
-		"title_en" :title_en,
-		"name_en" :name_en,
-		"surname_en" :surname_en,
-		"sex" : sex,
-		"person_id" :person_id,
-		"birthday" :birthday,
-		"email" :email,
-		"tel" :tel,
-		"country" : country,
-		"nationality" : nationality,
-		"address" : address,
-		"province" : province,
-		"post" :post,
-		"passport" :passport,
-		"issue_date" :issue_date,
-		"expire_date" :expire_date,
-		"detail" :detail,
-		"no_pig" : no_pig,
-		"no_meat" : no_meat,
-		"no_chicken" : no_chicken,
-		"halal" : halal,
-		"mangsa" : mangsa,
-		"vegetarian" : vegetarian,
-		"islam" : islam,
-		"no_seafood" : no_seafood,
-		"no_shrimp" : no_shrimp,
-		"no_fish" : no_fish})
+	var json = JSON.stringify({"TOUR_ID" :tour_id,
+		"THAI_TITLE" :title_th,
+		"THAI_NAME" :name_th,
+		"THAI_SURNAME" :surname_th,
+		"ENG_TITLE" :title_en,
+		"ENG_NAME" :name_en,
+		"ENG_SURNAME" :surname_en,
+		"SEX" : sex,
+		"PERSON_ID" :person_id,
+		"BIRTH_DAY" :birthday,
+		"EMAIL" :email,
+		"TEL" :tel,
+		"COUNTRY" : country,
+		"NATIONALITY" : nationality,
+		"ADDRESS" : address,
+		"PROVINCE" : province,
+		"POST_NO" :post,
+		"PASSPORT_ID" :passport,
+		"ISSUE_DATE" :issue_date,
+		"EXPIRE_DATE" :expire_date,
+		"DETAIL" :detail,
+		"NO_PIG" : no_pig,
+		"NO_MEAT" : no_meat,
+		"NO_CHICKEN" : no_chicken,
+		"HALAL" : halal,
+		"MANGSA" : mangsa,
+		"VEGETARIAN" : vegetarian,
+		"ISLAM" : islam,
+		"NO_SEAFOOD" : no_seafood,
+		"NO_SHRIMP" : no_shrimp,
+		"NO_FISH" : no_fish})
 	xmlhttp.open("POST", "/api/update_tour")
 	xmlhttp.setRequestHeader("Content-Type", "application/json ; charset=UTF-8" )
 	xmlhttp.send(json)

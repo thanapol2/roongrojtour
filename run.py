@@ -33,6 +33,7 @@ def getMember(tourID):
         return render_template("company_detail.html", data=data, provinces=PROVINCES,types=COMPANY_TYPES)
     else:
         data = dao.getTourDetail(tourID)
+        print(data)
         return render_template("tour_detail.html", data=data,countrys=COUNTRYS, nations=NATIONS, provinces=PROVINCES)
 
 @app.route('/api/new_tour')
@@ -50,7 +51,7 @@ def createupdate_tour():
     data =  request.get_json()
     # issueDate = request.form['password']
     print(data)
-    if(data["tour_id"]==""):
+    if(""==data["TOUR_ID"]):
         print("new")
     else:
         print("update")
@@ -60,14 +61,14 @@ def createupdate_tour():
 @app.route('/api/update_company',methods = ['POST'])
 def createupdate_company():
     data =  request.get_json()
-    # issueDate = request.form['password']
+    issueDate = request.form['password']
     print(data)
     if(data["COMPANY_ID"]==""):
         dao.newCompany(data)
     else:
         print("update")
         dao.updateCompany(data)
-    # print(issueDate)
+    print(issueDate)
     return json.dumps({'status':'OK','user':data})
 
 #  Tour member ------------------------
@@ -101,6 +102,15 @@ def getInvoice(invoiceNo):
     data,rows = dao.getInvoiceDetail(invoiceNo,rev)
     return render_template("invoice_detail.html",data=data,rows=rows,invoiceTypes=invoiceTypes)
 
+@app.route('/api/new_invoice/<invoiceType>')
+def newInvoice(invoiceType):
+    invoiceTypes = []
+    if("rts" in invoiceType):
+        invoiceTypes = RTS_TYPE
+    else:
+        invoiceTypes = RT_TYPE
+    return render_template("invoice_detail.html",data=[],rows=[],invoiceTypes=invoiceTypes)
+
 #  payment_no = No_Type
 @app.route('/api/search_payment/<paymentNo>')
 def getPayment(paymentNo):
@@ -117,3 +127,4 @@ if __name__ == "__main__":
     # reload(sys)
     # sys.setdefaultencoding('utf-8')
     app.run(debug=True)
+    # app.run(host = '0.0.0.0',port=5000)
