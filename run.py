@@ -1,13 +1,20 @@
+import os
 from flask import Flask, render_template,jsonify,request,json
 from flask_cors import CORS
 import backend.dao as dao
 import backend.config_data as config_data
+from werkzeug import utils
+import backend.Tools as Tools
 
-
+# Config flask
+UPLOAD_FOLDER = './dist/static/image/tour_picture'
 app = Flask(__name__,
             static_folder = "./dist/static",
             template_folder = "./dist/templates")
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+
+
 #  Config get data
 config = config_data.config_data()
 NATIONS = config.NATIONS
@@ -20,6 +27,24 @@ RT_TYPE = config.RT_TYPE
 RTS_TYPE = config.RTS_TYPE
 
 #  Tour member ------------------------
+@app.route('/api/upload')
+def upload():
+   return render_template('upload.html')
+
+@app.route('/api/uploader', methods = ['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            return 'No file part'
+        file = request.files['file']
+        if file.filename == '':
+            return 'No selected file'
+        if file and Tools.allowed_file(file.filename):
+            filename = utils.secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+    return 'file uploaded successfully'
+
 @app.route('/api/search_tour')
 def searchTour():
     rows = dao.searchTour()
@@ -35,6 +60,14 @@ def getMember(tourID):
         data = dao.getTourDetail(tourID)
         print(data)
         return render_template("tour_detail.html", data=data,countrys=COUNTRYS, nations=NATIONS, provinces=PROVINCES)
+
+@app.route('/api/checked_name/<nameSurname>')
+def checkName(nameSurname):
+    data = nameSurname.split("_")
+    if(dao.checkTourName(data[0],data[1])):
+        return "<p style='color:green;'><b>OK</b></p>"
+    else:
+        return "<p style='color:red;'><b>" + data[0]+" "+data[1] + "</b> is already created.</p>"
 
 @app.route('/api/new_tour')
 def newTour():
@@ -55,21 +88,17 @@ def createupdate_tour():
         print("new")
     else:
         print("update")
-    # print(issueDate)
-    return json.dumps({'status':'OK','user':data})
+        # dao.updateTour(data)
+    return json.dumps({'status':'OK'})
 
 @app.route('/api/update_company',methods = ['POST'])
 def createupdate_company():
-    data =  request.get_json()
-    issueDate = request.form['password']
-    print(data)
+    data = request.get_json()
     if(data["COMPANY_ID"]==""):
         dao.newCompany(data)
     else:
-        print("update")
         dao.updateCompany(data)
-    print(issueDate)
-    return json.dumps({'status':'OK','user':data})
+    return json.dumps({'status':'OK'})
 
 #  Tour member ------------------------
 

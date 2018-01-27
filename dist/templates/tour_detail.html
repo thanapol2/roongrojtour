@@ -108,6 +108,7 @@
                                     <div class="form-group row">
                                         <div class="col-sm-12">
                                             <label class="form-control-label">ชื่อ - นามสกุลภาษาไทย</label>
+                                            <label id="status"> </label>
                                             <div class="row">
                                                 <div class="col-sm-2 select">
                                                     <select id="title_th" class="form-control" placeholder="select" onchange="changeTittle()" required>
@@ -188,7 +189,7 @@
                                     <div class="form-group row">
                                         <div class="col-sm-6">
                                             <label class="form-control-label">EMAIL</label>
-                                            <input id="email" type="email" placeholder="EMAIL" class="form-control form-control-sm" value= '{{ data["EMAIL"] }}'>
+                                            <input id="email" type="text" placeholder="EMAIL" class="form-control form-control-sm" value= '{{ data["EMAIL"] }}'>
                                         </div>
                                         <div class="col-sm-6">
                                             <label class="form-control-label">เบอร์ติดต่อ</label>
@@ -346,12 +347,12 @@
                                     <div class="form-group row">
                                         <div class="col-md-12">
                                             <label for="inputFile">File input</label>
-                                            <input type="file" id="inputFile" accept=".jpg,.gif,.png">
+                                            <input type="file" id="input_img" accept=".jpg,.gif,.png" onchange="readURL(this)">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-12">
-                                            <div class="image has-shadow"><img src="{{ url_for('static',filename='band.png')}}" alt="..." class="img-fluid"></div>
+                                            <div class="image has-shadow"><img id=img_display src="{{ url_for('static',filename= data["PATH_PIC"] )}}" alt="..." class="img-fluid"></div>
                                         </div>
                                     </div>
                                     <div class="line"> </div>

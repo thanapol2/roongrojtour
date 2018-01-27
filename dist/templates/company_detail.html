@@ -207,12 +207,12 @@
                                     <div class="form-group row">
                                         <div class="col-md-12">
                                             <label for="inputFile">File input</label>
-                                            <input type="file" id="inputFile" accept=".jpg,.gif,.png">
+                                            <input type="file" id="input_img" accept=".jpg,.gif,.png" onchange="readURL(this)">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-12">
-                                            <div class="image has-shadow"><img src="{{ url_for('static',filename='band.png')}}" alt="..." class="img-fluid"></div>
+                                            <div class="image has-shadow"><img id=img_display img src="{{ url_for('static',filename= data["PATH_PIC"] )}}" alt="..." class="img-fluid"></div>
                                         </div>
                                     </div>
                                     <div class="line"> </div>

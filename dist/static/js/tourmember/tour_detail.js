@@ -1,12 +1,60 @@
 $(document).ready(function(){
 	$("#input_form").submit(function(e) {
 		e.preventDefault();
-		clickSubmit()
+		var status = $("#status").text();
+		if(("OK"==status)||(" "==status)){
+			clickSubmit()
+		}else{
+			alert("Please, Check TH_NAME and TH_SURNAME");
+		}
+	});
+	$("#name_th").keyup(function(){
+		checkNameSurname()
+
+	});
+	$("#surname_th").keyup(function(){
+		checkNameSurname()
 	});
 });
 
+function readURL(input) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+
+		reader.onload = function (e) {
+			$('#img_display')
+			.attr('src', e.target.result)
+		};
+
+		reader.readAsDataURL(input.files[0]);
+	}
+}
+
+function checkNameSurname(){
+	var name_th = document.getElementById("name_th").value
+	var surname_th = document.getElementById("surname_th").value
+	if((name_th.length==0)||(surname_th.length==0)){
+		return;
+	}else{
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				document.getElementById("status").innerHTML = this.responseText;
+			}
+		};
+		xmlhttp.open("GET", "/api/checked_name/" + name_th+"_"+surname_th, true);
+		xmlhttp.send();
+	}
+}
+
+
 function clickSubmit(){
 	var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+	xmlhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			alert(this.responseText)
+		}
+	};
 	var tour_id = document.getElementById("tour_id").textContent
 	var titles_th = document.getElementById("title_th")
 	var title_th = titles_th.options[titles_th.selectedIndex].value
@@ -38,6 +86,7 @@ function clickSubmit(){
 	var issue_date = document.getElementById("issueDate").value
 	var expire_date = document.getElementById("expireDate").value
 	var detail = document.getElementById("detail").value
+	// var path_pic = document.getElementById("input_img").value
 	var no_pig = "N"
 	var no_meat = "N"
 	var no_chicken = "N"
@@ -136,7 +185,5 @@ function changeTittle() {
 	}
 	var sex = ""
 	document.getElementById("title_en").value = title_en
-
-	console.log(country)
 }
 

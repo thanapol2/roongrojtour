@@ -1,6 +1,7 @@
 import configparser
 import cx_Oracle
 import os
+import backend.Tools as Tools
 
 # db_connect = create_engine('oracle://tong:tong@127.0.0.1:1521/xe',coerce_to_unicode=True)
 os.environ["NLS_LANG"] = ".UTF8"
@@ -11,6 +12,29 @@ USER = config['CONFIG']['USER']
 PASS = config['CONFIG']['PASS']
 DB_URL = config['CONFIG']['DB_URL']
 
+
+def checkTourName(name,surname):
+    canInsert = False
+    conn = cx_Oracle.connect(USER, PASS, DB_URL)
+    # conn = db_connect.connect()
+    sql = 	"SELECT count(*) numb	"\
+		    "FROM tour_master		"\
+		    "Where  THAI_NAME = 	"\
+		    "'"+name+"' and"\
+		    "	  THAI_SURNAME = 	"\
+		    "'"+surname+"'"
+    cur = conn.cursor()
+    cur.execute(sql)
+    rows = cur.fetchall()
+    for row in rows:
+        number = row[0]
+    cur.close()
+    conn.close()
+    if(number>0):
+        canInsert = False
+    else:
+        canInsert = True
+    return canInsert
 
 def searchTour():
     conn = cx_Oracle.connect(USER, PASS, DB_URL)
@@ -27,59 +51,6 @@ def searchTour():
     conn.close()
     return rows
 
-def searchInvoice():
-    conn = cx_Oracle.connect(USER, PASS, DB_URL)
-    # conn = db_connect.connect()
-    sql = "select INVOICE_NO,			                        " \
-          "		  CUSTOMER_NAME,		                        " \
-          "		  PAYMENT_TYPE,			                        " \
-          "		  to_char(ISSUE_DATE,'YYYY/MM/DD') issue_date,	" \
-          "		  CREATE_USER									" \
-          "FROM  search_invoice	                                " \
-          "order by invoice_no	desc,ISSUE_DATE	desc            "
-    cur = conn.cursor()
-    cur.execute(sql)
-    rows = cur.fetchall()
-    cur.close()
-    conn.close()
-    return rows
-
-def searchPayment():
-    conn = cx_Oracle.connect(USER, PASS, DB_URL)
-    # conn = db_connect.connect()
-    sql = "select PAYMENT_TYPE,									"\
-		"	PAYMENT_NO,											"\
-		"	INVOICE_NO, 										"\
-        "	REJECT,												"\
-        "	to_char(PAYMENT_DATE,'YYYY/MM/DD') PAYMENT_DATE,	"\
-        "	CUSTOMER_NAME,										"\
-        "	to_char(ISSUE_DATE,'YYYY/MM/DD') issue_date		    "\
-		"from Search_PAYMENT									"\
-		"order by PAYMENT_NO							        "
-    cur = conn.cursor()
-    cur.execute(sql)
-    rows = cur.fetchall()
-    cur.close()
-    conn.close()
-    return rows
-
-def createUpdateTour(data):
-    conn = cx_Oracle.connect(USER, PASS, DB_URL)
-    cur = conn.cursor()
-    msg = ''
-    try:
-        sql = "insert into table1 (column1) values ('1') "
-        cur.execute(sql)
-        conn.commit()
-    except:
-        conn.rollback()
-        msg = "error in insert operation"
-
-    finally:
-        cur.close()
-        conn.close()
-
-    return msg
 def getTourDetail(tourID):
     conn = cx_Oracle.connect(USER, PASS, DB_URL)
     cur = conn.cursor()
@@ -107,6 +78,7 @@ def getTourDetail(tourID):
     "		, PROVINCE 										"\
     "		, POST_NO 										"\
     "		, TEL											"\
+    "       , NVL(PATH_PIC,'no_pic.jpg') PATH_PIC           "\
     "from tour_Master										"\
     "where tour_id =  '" + tourID +"'"
     cur.execute(sql)
@@ -134,6 +106,7 @@ def getTourDetail(tourID):
         result['PROVINCE'] = row[19]
         result['POST_NO'] = row[20]
         result['TEL'] = row[21]
+        result['PATH_PIC'] = 'image/tour_picture/'+row[22]
 
     sql = "select TOUR_ID									"\
 		"		,NO_PIG 									"\
@@ -164,7 +137,6 @@ def getTourDetail(tourID):
     cur.close()
     conn.close()
     return result
-
 
 def getCompanyDetail(tourID):
     conn = cx_Oracle.connect(USER, PASS, DB_URL)
@@ -217,6 +189,308 @@ def getCompanyMeeting(tourID):
     "on s.SALES_ID = m.SALE_ID								"\
     "where m.company_id =  '" + tourID + "'					"\
     "	  AND m.STATUS = 'Y'								"
+    cur = conn.cursor()
+    cur.execute(sql)
+    rows = cur.fetchall()
+    cur.close()
+    conn.close()
+    return rows
+
+def newCompany(data):
+    conn = cx_Oracle.connect(USER, PASS, DB_URL)
+    cur = conn.cursor()
+    sql = "INSERT INTO COMPANY_MASTER 	"\
+			"		(THAI_NAME,			"\
+			"		ENG_NAME,			"\
+			"		ADDRESS,			"\
+			"		POST_NO,			"\
+			"		PROVINCE,			"\
+			"		TAX_ID,				"\
+			"		EMAIL,				"\
+			"		TEL_NO,				"\
+			"		COMPANY_TYPE,		"\
+			"		REMARK)				"\
+			"		VALUES (			"\
+			"'"+data['THAI_NAME']+"',   "\
+			"'"+data['ENG_NAME']+"',    "\
+			"'"+data['ADDRESS']+"',     "\
+			"'"+data['POST_NO']+"',     "\
+			"'"+data['PROVINCE']+"',    "\
+			"'"+data['TAX_ID']+"',      "\
+			"'"+data['EMAIL']+"',           "\
+			"'"+data['TEL_NO']+"',          "\
+			"'"+data['COMPANY_TYPE']+"',    "\
+			"'"+data['REMARK']+"'           "\
+			")"
+    try:
+        cur.execute(sql)
+        conn.commit()
+    except cx_Oracle.DatabaseError as e:
+        conn.rollback()
+    finally:
+        cur.close()
+        conn.close()
+
+def updateCompany(data):
+    conn = cx_Oracle.connect(USER, PASS, DB_URL)
+    cur = conn.cursor()
+    sql = 	"UPDATE COMPANY_MASTER		    "\
+			"SET		THAI_NAME    =		"\
+			"'"+data['THAI_NAME']+"',       "\
+			"		ENG_NAME	 =		    "\
+			"'"+data['ENG_NAME']+"',        "\
+			"		ADDRESS		 =		    "\
+			"'"+data['ADDRESS']+"',         "\
+			"		POST_NO		 =		    "\
+			"'"+data['POST_NO']+"',         "\
+			"		PROVINCE	 =		    "\
+			"'"+data['PROVINCE']+"',        "\
+			"		TAX_ID		 =		    "\
+			"'"+data['TAX_ID']+"',          "\
+			"		EMAIL		 =		    "\
+			"'"+data['EMAIL']+"',           "\
+			"		TEL_NO		 =		    "\
+			"'"+data['TEL_NO']+"',          "\
+			"		COMPANY_TYPE =		    "\
+			"'"+data['COMPANY_TYPE']+"',    "\
+			"		REMARK		 =		    "\
+			"'"+data['REMARK']+"'           "\
+			"WHERE COMPANY_ID	 =		    "\
+			"'"+data['COMPANY_ID']+"'       "
+    print(sql)
+    try:
+        cur.execute(sql)
+        conn.commit()
+    except cx_Oracle.DatabaseError as e:
+        conn.rollback()
+    finally:
+        cur.close()
+        conn.close()
+
+def newTour(data):
+    conn = cx_Oracle.connect(USER, PASS, DB_URL)
+    cur = conn.cursor()
+    try:
+        sql = "INSERT INTO TOUR_MASTER 	    "\
+				"		(THAI_TITLE,		"\
+				"		THAI_NAME,			"\
+				"		THAI_SURNAME,		"\
+				"		ENG_TITLE,			"\
+				"		ENG_NAME,			"\
+				"		ENG_SURNAME,		"\
+				"		SEX,				"\
+				"		PERSON_ID,			"\
+				"		PASSPORT_ID,		"\
+				"		EMAIL,				"\
+				"		COUNTRY,			"\
+				"		NATIONALITY,		"\
+				"		BIRTH_DAY,			"\
+				"		ISSUE_DATE,			"\
+				"		EXPIRE_DATE,		"\
+				"		DETAIL,				"\
+				"		TEL,				"\
+				"		ADDRESS,			"\
+				"		POST_NO,			"\
+				"		PROVINCE			"\
+				"		)					"\
+				"		VALUES (			"\
+				"'"+data['THAI_TITLE']+"',       "\
+				"'"+data['THAI_NAME']+"',        "\
+				"'"+data['THAI_SURNAME']+"',      "\
+				"'"+data['ENG_TITLE']+"',        "\
+				"'"+data['ENG_NAME']+"',        "\
+				"'"+data['ENG_SURNAME']+"',      "\
+				"'"+data['SEX']+"',           "\
+				"'"+data['PERSON_ID']+"',      "\
+				"'"+data['PASSPORT_ID']+"',    "\
+				"'"+data['EMAIL']+"',         "\
+				"'"+data['COUNTRY']+"',       "\
+				"'"+data['NATIONALITY']+"',   " \
+                + Tools.genToDateSQL(data['BIRTH_DAY']) + ",      " \
+                + Tools.genToDateSQL(data['ISSUE_DATE']) + ",     " \
+                + Tools.genToDateSQL(data['EXPIRE_DATE']) + ",    " \
+                "'"+data['DETAIL']+"',        "\
+				"'"+data['TEL']+"',         "\
+				"'"+data['ADDRESS']+"',       "\
+				"'"+data['POST_NO']+"',        "\
+				"'"+data['PROVINCE']+"'     "\
+                ")"
+        cur.execute(sql)
+        sql = "INSERT INTO EAT	( TOUR_ID						"\
+				    "	,NO_PIG										"\
+				    "	,NO_MEAT									"\
+				    "	,NO_CHICKEN									"\
+				    "	,HALAL										"\
+				    "	,MANGSA										"\
+				    "	,VEGETARIAN									"\
+				    "	,ISLAM										"\
+				    "	,NO_SEAFOOD									"\
+				    "	,NO_SHRIMP									"\
+				    "	,NO_FISH									"\
+				    ") (SELECT tour_id,								"\
+                    "	,'"+data['NO_PIG']+"'		    "\
+                    "	,'"+data['NO_MEAT']+"'		"\
+                    "	,'"+data['NO_CHICKEN']+"'		"\
+                    "	,'"+data['HALAL']+"'		    "\
+                    "	,'"+data['MANGSA']+"'		"\
+                    "	,'"+data['VEGETARIAN']+"'		    "\
+                    "	,'"+data['ISLAM']+"'		    "\
+                    "	,'"+data['NO_SEAFOOD']+"'	    "\
+                    "	,'"+data['NO_SHRIMP']+"'	    "\
+                    "	,'"+data['NO_FISH']+"'		"\
+				    "	FROM tour_master							"\
+				    "	WHERE THAI_NAME||' '||THAI_SURNAME	=		"\
+				    "	'"+data['THAI_NAME']+" " \
+                    + data['THAI_SURNAME'] +"')					"
+        cur.execute(sql)
+        conn.commit()
+    except cx_Oracle.DatabaseError as e:
+        conn.rollback()
+    finally:
+        cur.close()
+        conn.close()
+
+def updateTour(data):
+    conn = cx_Oracle.connect(USER, PASS, DB_URL)
+    cur = conn.cursor()
+    try:
+        sql = 	"UPDATE   TOUR_MASTER		 	    "\
+				"SET		THAI_TITLE    =		    "\
+				"'"+data['THAI_TITLE']+"',       "\
+				"		THAI_NAME     =		        "\
+				"'"+data['THAI_NAME']+"',        "\
+				"		THAI_SURNAME  =		        "\
+				"'"+data['THAI_SURNAME']+"',      "\
+				"		ENG_TITLE	  =		        "\
+				"'"+data['ENG_TITLE']+"',        "\
+				"		ENG_NAME	  =		        "\
+				"'"+data['ENG_NAME']+"',        "\
+				"		ENG_SURNAME	  =		        "\
+				"'"+data['ENG_SURNAME']+"',      "\
+				"		SEX	 		  =		        "\
+				"'"+data['SEX']+"',           "\
+				"		PERSON_ID	  =		        "\
+				"'"+data['PERSON_ID']+"',      "\
+				"		PASSPORT_ID	  =		        "\
+				"'"+data['PASSPORT_ID']+"',    "\
+				"		EMAIL		  =		        "\
+				"'"+data['EMAIL']+"',         "\
+				"		COUNTRY	  	  =		        "\
+				"'"+data['COUNTRY']+"',       "\
+				"		NATIONALITY	  =		        "\
+				"'"+data['NATIONALITY']+"',   "\
+				"		BIRTH_DAY	  =		        "\
+                + Tools.genToDateSQL(data['BIRTH_DAY'])+",      "\
+				"		ISSUE_DATE	  =		        "\
+                + Tools.genToDateSQL(data['ISSUE_DATE'])+",     "\
+				"		EXPIRE_DATE	  =		        "\
+                + Tools.genToDateSQL(data['EXPIRE_DATE'])+",    "\
+				"		DETAIL	  	  =		        "\
+				"'"+data['DETAIL']+"',        "\
+				"		TEL	  		  =		        "\
+				"'"+data['TEL']+"',         "\
+				"		ADDRESS	  	  =		        "\
+				"'"+data['ADDRESS']+"',       "\
+				"		POST_NO	      =		        "\
+				"'"+data['POST_NO']+"',        "\
+				"		PROVINCE	  =		        "\
+				"'"+data['PROVINCE']+"'     "\
+				"WHERE TOUR_ID  =           "\
+				"'"+data['TOUR_ID']+"'      "
+        print(sql)
+        cur.execute(sql)
+
+        sql =   "merge INTO EAT a USING					       "\
+                "     (SELECT count(tour_id) cid FROM eat		"\
+                "      where TOUR_ID = 				        "\
+                "'"+data['TOUR_ID']+"')		                "\
+                "   b ON (b.cid > 0)						"\
+                "WHEN MATCHED THEN							"\
+                "UPDATE  		 							"\
+                "SET		 NO_PIG =						"\
+                "'"+data['NO_PIG']+"',		            "\
+                "		NO_MEAT	=							"\
+                "'"+data['NO_MEAT']+"',		            "\
+                "		NO_CHICKEN	=						"\
+                "'"+data['NO_CHICKEN']+"',		            "\
+                "		HALAL	=							"\
+                "'"+data['HALAL']+"',		            "\
+                "		MANGSA 	=							"\
+                "'"+data['MANGSA']+"',		"\
+                "		VEGETARIAN	=						"\
+                "'"+data['VEGETARIAN']+"',		"\
+                "		ISLAM		=						"\
+                "'"+data['ISLAM']+"',		"\
+                "		NO_SEAFOOD	=						"\
+                "'"+data['NO_SEAFOOD']+"',	"\
+                "		NO_SHRIMP	=						"\
+                "'"+data['NO_SHRIMP']+"',	"\
+                "		NO_FISH		=						"\
+                "'"+data['NO_FISH']+"' 		"\
+                " where TOUR_ID = 							"\
+                "'"+data['TOUR_ID']+"'		                "\
+                "WHEN NOT MATCHED THEN						"\
+                "INSERT ( TOUR_ID						    "\
+                "	,NO_PIG									"\
+                "	,NO_MEAT								"\
+                "	,NO_CHICKEN								"\
+                "	,HALAL									"\
+                "	,MANGSA									"\
+                "	,VEGETARIAN								"\
+                "	,ISLAM									"\
+                "	,NO_SEAFOOD								"\
+                "	,NO_SHRIMP								"\
+                "	,NO_FISH								"\
+                ") values ( '"+data['TOUR_ID']+"'         "\
+                "	,'"+data['NO_PIG']+"'		    "\
+                "	,'"+data['NO_MEAT']+"'		"\
+                "	,'"+data['NO_CHICKEN']+"'		"\
+                "	,'"+data['HALAL']+"'		    "\
+                "	,'"+data['MANGSA']+"'		"\
+                "	,'"+data['VEGETARIAN']+"'		    "\
+                "	,'"+data['ISLAM']+"'		    "\
+                "	,'"+data['NO_SEAFOOD']+"'	    "\
+                "	,'"+data['NO_SHRIMP']+"'	    "\
+                "	,'"+data['NO_FISH']+"'		"\
+                ")									"
+        print(sql)
+        cur.execute(sql)
+        conn.commit()
+    except cx_Oracle.DatabaseError as e:
+        conn.rollback()
+    finally:
+        cur.close()
+        conn.close()
+
+def searchInvoice():
+    conn = cx_Oracle.connect(USER, PASS, DB_URL)
+    # conn = db_connect.connect()
+    sql = "select INVOICE_NO,			                        " \
+          "		  CUSTOMER_NAME,		                        " \
+          "		  PAYMENT_TYPE,			                        " \
+          "		  to_char(ISSUE_DATE,'YYYY/MM/DD') issue_date,	" \
+          "		  CREATE_USER									" \
+          "FROM  search_invoice	                                " \
+          "order by invoice_no	desc,ISSUE_DATE	desc            "
+    cur = conn.cursor()
+    cur.execute(sql)
+    rows = cur.fetchall()
+    cur.close()
+    conn.close()
+    return rows
+
+def searchPayment():
+    conn = cx_Oracle.connect(USER, PASS, DB_URL)
+    # conn = db_connect.connect()
+    sql = "select PAYMENT_TYPE,									"\
+		"	PAYMENT_NO,											"\
+		"	INVOICE_NO, 										"\
+        "	REJECT,												"\
+        "	to_char(PAYMENT_DATE,'YYYY/MM/DD') PAYMENT_DATE,	"\
+        "	CUSTOMER_NAME,										"\
+        "	to_char(ISSUE_DATE,'YYYY/MM/DD') issue_date		    "\
+		"from Search_PAYMENT									"\
+		"order by PAYMENT_NO							        "
     cur = conn.cursor()
     cur.execute(sql)
     rows = cur.fetchall()
@@ -395,73 +669,3 @@ def getInvoiceDetail(invoiceNo,rev):
 
     return headInvoice,detailInvoice
 
-def newCompany(data):
-    conn = cx_Oracle.connect(USER, PASS, DB_URL)
-    cur = conn.cursor()
-    sql = "INSERT INTO COMPANY_MASTER 	"\
-			"		(THAI_NAME,			"\
-			"		ENG_NAME,			"\
-			"		ADDRESS,			"\
-			"		POST_NO,			"\
-			"		PROVINCE,			"\
-			"		TAX_ID,				"\
-			"		EMAIL,				"\
-			"		TEL_NO,				"\
-			"		COMPANY_TYPE,		"\
-			"		REMARK)				"\
-			"		VALUES (			"\
-			"'"+data['THAI_NAME']+"',   "\
-			"'"+data['ENG_NAME']+"',    "\
-			"'"+data['ADDRESS']+"',     "\
-			"'"+data['POST_NO']+"',     "\
-			"'"+data['PROVINCE']+"',    "\
-			"'"+data['TAX_ID']+"',      "\
-			"'"+data['EMAIL']+"',           "\
-			"'"+data['TEL_NO']+"',          "\
-			"'"+data['COMPANY_TYPE']+"',    "\
-			"'"+data['REMARK']+"'           "\
-			")"
-    try:
-        cur.execute(sql)
-        conn.commit()
-    except cx_Oracle.DatabaseError as e:
-        conn.rollback()
-    finally:
-        cur.close()
-        conn.close()
-
-def updateCompany(data):
-    conn = cx_Oracle.connect(USER, PASS, DB_URL)
-    cur = conn.cursor()
-    sql = 	"UPDATE COMPANY_MASTER		    "\
-			"SET		THAI_NAME    =		"\
-			"'"+data['THAI_NAME']+"',       "\
-			"		ENG_NAME	 =		    "\
-			"'"+data['ENG_NAME']+"',        "\
-			"		ADDRESS		 =		    "\
-			"'"+data['ADDRESS']+"',         "\
-			"		POST_NO		 =		    "\
-			"'"+data['POST_NO']+"',         "\
-			"		PROVINCE	 =		    "\
-			"'"+data['PROVINCE']+"',        "\
-			"		TAX_ID		 =		    "\
-			"'"+data['TAX_ID']+"',          "\
-			"		EMAIL		 =		    "\
-			"'"+data['EMAIL']+"',           "\
-			"		TEL_NO		 =		    "\
-			"'"+data['TEL_NO']+"',          "\
-			"		COMPANY_TYPE =		    "\
-			"'"+data['COMPANY_TYPE']+"',    "\
-			"		REMARK		 =		    "\
-			"'"+data['REMARK']+"'           "\
-			"WHERE COMPANY_ID	 =		    "\
-			"'"+data['COMPANY_ID']+"'       "
-    print(sql)
-    try:
-        cur.execute(sql)
-        conn.commit()
-    except cx_Oracle.DatabaseError as e:
-        conn.rollback()
-    finally:
-        cur.close()
-        conn.close()
