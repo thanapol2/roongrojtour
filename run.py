@@ -26,6 +26,14 @@ PAYMENT_TYPES = config.PAYMENT_TYPES
 RT_TYPE = config.RT_TYPE
 RTS_TYPE = config.RTS_TYPE
 
+@app.route('/api/test', methods=['POST'])
+def test():
+   if request.method == 'POST':
+      result = request.form
+      d = json.loads(result["json"])
+      print(d)
+      return render_template("result.html",result = result)
+
 #  Tour member ------------------------
 @app.route('/api/upload')
 def upload():
@@ -147,10 +155,6 @@ def getPayment(paymentNo):
     data = dao.getPaymentDetail(payment[0],payment[1])
     return render_template("payment_detail.html",data=data,banks=BANKS,paymentTypes=PAYMENT_TYPES)
 
-
-@app.route('/api/signUp')
-def signUp():
-    return render_template('test.html')
 
 if __name__ == "__main__":
     # reload(sys)

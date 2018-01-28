@@ -1,11 +1,47 @@
 <html>
-   <body>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<script type="text/javascript">
+		function clickSubmit(){
+			var xmlhttp = new XMLHttpRequest();   
+			xmlhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					alert(this.responseText)
+				}
+			};
+			var x = document.getElementById("pic");
+			// if ('files' in x) {
+			// 	if (x.files.length == 0) {
 
-      <form action = "http://localhost:5000/api/uploader" method = "POST"
-         enctype = "multipart/form-data">
-         <input type = "file" name = "file" />
-         <input type = "submit"/>
-      </form>
+			// 	} else {
+			// 		for (var i = 0; i < x.files.length; i++) {
+			// 			txt += "<br><strong>" + (i+1) + ". file</strong><br>";
+			// 			var file = x.files[i];
+			// 			if ('name' in file) {
+			// 				txt += "name: " + file.name + "<br>";
+			// 			}
+			// 			if ('size' in file) {
+			// 				txt += "size: " + file.size + " bytes <br>";
+			// 			}
+			// 		}
+			// 	}
+			// } 
+			var json = {"COMPANY_ID" :"01","THAI_NAME" :"สวัสดี"};
+			var formData = new FormData();
+			formData.append("json", JSON.stringify(json));
+			formData.append("img", x.files[0],x.files[0].name);
+			xmlhttp.open("POST", "/api/test")
+			// xmlhttp.setRequestHeader("Content-Type", "application/json ; charset=UTF-8" )
+			xmlhttp.send(formData)
+		}
+	</script>
+</head>
+<body>
 
-   </body>
+	<form>
+		<input id="pic" type = "file" name = "file" />
+		<button id="btn" type="button" onclick="clickSubmit()">Click Me!</button> 
+	</form>
+
+</body>
 </html>
