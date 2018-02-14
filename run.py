@@ -26,32 +26,6 @@ PAYMENT_TYPES = config.PAYMENT_TYPES
 RT_TYPE = config.RT_TYPE
 RTS_TYPE = config.RTS_TYPE
 
-@app.route('/api/test', methods=['POST'])
-def test():
-   if request.method == 'POST':
-      result = request.form
-      d = json.loads(result["json"])
-      print(d)
-      return render_template("result.html",result = result)
-
-#  Tour member ------------------------
-@app.route('/api/upload')
-def upload():
-   return render_template('upload.html')
-
-@app.route('/api/uploader', methods = ['GET', 'POST'])
-def upload_file():
-    if request.method == 'POST':
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            return 'No file part'
-        file = request.files['file']
-        if file.filename == '':
-            return 'No selected file'
-        if file and Tools.allowed_file(file.filename):
-            filename = utils.secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
-    return 'file uploaded successfully'
 
 @app.route('/api/search_tour')
 def searchTour():

@@ -6,7 +6,9 @@
 			var xmlhttp = new XMLHttpRequest();   
 			xmlhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-					alert(this.responseText)
+					// alert(this.responseText)
+					window.location.reload()
+					// window.location.replace("/api/test");
 				}
 			};
 			var x = document.getElementById("pic");
@@ -28,19 +30,43 @@
 			// } 
 			var json = {"COMPANY_ID" :"01","THAI_NAME" :"สวัสดี"};
 			var formData = new FormData();
-			formData.append("json", JSON.stringify(json));
-			formData.append("img", x.files[0],x.files[0].name);
+			formData.append("nm", "TEST");
+			// formData.append("img", x.files[0],x.files[0].name);
 			xmlhttp.open("POST", "/api/test")
 			// xmlhttp.setRequestHeader("Content-Type", "application/json ; charset=UTF-8" )
 			xmlhttp.send(formData)
+		}
+
+		function post() {
+
+			var form = document.createElement("form");
+			form.setAttribute("method", "post");
+			form.setAttribute("action", "http://localhost:5000/api/test");
+
+			var Field = document.createElement("input");
+
+			Field.setAttribute("type", "hidden");
+			Field.setAttribute("name", "json");
+			Field.setAttribute("value", "test");
+			form.appendChild(Field);
+
+			
+			document.body.appendChild(form);
+			form.submit();
 		}
 	</script>
 </head>
 <body>
 
+
+<!-- 	<form action = "http://localhost:5000/login" method = "get">
+		<p>Enter Name:</p>
+		<p><input type = "text" name = "nm" /></p>
+		<p><input type = "submit" value = "submit" /></p>
+	</form> -->
 	<form>
 		<input id="pic" type = "file" name = "file" />
-		<button id="btn" type="button" onclick="clickSubmit()">Click Me!</button> 
+		<button id="btn" type="button" onclick="post()">Click Me!</button> 
 	</form>
 
 </body>
