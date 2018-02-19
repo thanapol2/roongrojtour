@@ -67,10 +67,9 @@ def createupdate_tour():
     # issueDate = request.form['password']
     print(data)
     if(""==data["TOUR_ID"]):
-        print("new")
+        dao.newTour(data)
     else:
-        print("update")
-        # dao.updateTour(data)
+        dao.updateTour(data)
     return json.dumps({'status':'OK'})
 
 @app.route('/api/update_company',methods = ['POST'])
@@ -129,6 +128,19 @@ def getPayment(paymentNo):
     data = dao.getPaymentDetail(payment[0],payment[1])
     return render_template("payment_detail.html",data=data,banks=BANKS,paymentTypes=PAYMENT_TYPES)
 
+@app.route('/api/create_noninvoice')
+def create_noninvoicet():
+    data = []
+    return render_template("payment_detail.html", data=data, banks=BANKS, paymentTypes=PAYMENT_TYPES)
+
+@app.route('/api/update_payment',methods = ['POST'])
+def createupdate_payment():
+    data = request.get_json()
+    if(data["PAYMENT_NO"]==""):
+        dao.newCompany(data)
+    else:
+        dao.updateCompany(data)
+    return json.dumps({'status':'OK'})
 
 if __name__ == "__main__":
     # reload(sys)

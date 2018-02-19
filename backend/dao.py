@@ -535,14 +535,17 @@ def getPaymentDetail(paymentNo,isVat):
 		"  ph.VAT,												" \
 		"  ph.TAX_ID,											" \
 		"  ph.ISVAT,											" \
-		"  pt.NAME as payment_name,								" \
+		"  ph.payment_type,              						" \
 		"  ph.payment_date,										" \
 		"  ph.CHEQUE_BANK,										" \
 		"  ph.CHEQUE_DATE,										" \
 		"  ph.CHEQUE_NO,										" \
 		"  ph.SALES_ID,											" \
-		"  s.TH_NAME||' '||s.TH_SURNAME as sales_name			" \
-		"FROM 													" \
+		"  s.TH_NAME||' '||s.TH_SURNAME as sales_name,			" \
+        "  ph.invoice_no,                                       " \
+        "  ph.REVISED,                           				" \
+        "  ph.invoice_type                                       " \
+          "FROM 													" \
 		"  (SELECT p.payment_no,								" \
 		"		    h.customer_id,								            " \
 		"		    h.customer_name, 							            " \
@@ -557,7 +560,10 @@ def getPaymentDetail(paymentNo,isVat):
 		"		    p.CHEQUE_BANK,								            " \
 		"		    TO_CHAR(p.CHEQUE_DATE,'YYYY-MM-DD') CHEQUE_DATE,	    " \
 		"		    p.SALES_ID,									            " \
-        "		    p.CHEQUE_NO									            " \
+        "		    p.CHEQUE_NO,								            " \
+        "           h.invoice_no,                                           " \
+        "           h.REVISED,                           				    " \
+        "           h.invoice_type                                          " \
         "	FROM payment_detail p								            " \
 		"	LEFT JOIN invoice_head h							" \
 		"		  ON p.invoice_no    = h.invoice_no				" \
@@ -566,10 +572,8 @@ def getPaymentDetail(paymentNo,isVat):
 		"		  WHERE p.PAYMENT_NO = '" + paymentNo +"'       " \
 		"		  AND   p.ISVAT = '" +isVat +"'                 " \
 		"		  ) ph,											" \
-		" PAYMENT_TYPE pt,		    							" \
 		" SALES s												" \
-		" WHERE pt.PAYMENT_TYPE = ph.PAYMENT_TYPE				" \
-		" AND S.SALES_ID = ph.SALES_ID                          "
+		" WHERE  S.SALES_ID = ph.SALES_ID                       "
     cur.execute(sql)
     rows = cur.fetchall()
     for row in rows:
@@ -590,6 +594,9 @@ def getPaymentDetail(paymentNo,isVat):
         result['CHEQUE_NO'] = row[14]
         result['SALES_ID'] = row[15]
         result['SALES_NAME'] = row[16]
+        result['INVOICE_NO'] = row[17]
+        result['REVISED'] = row[18]
+        result['INVOICE_TYPE'] = row[19]
     cur.close()
     conn.close()
     return result
