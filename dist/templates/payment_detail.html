@@ -28,45 +28,24 @@
     <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>  -->
     <script type="text/javascript" src="{{ url_for('static', filename='js/payment/payment_detail.js') }}"></script>
 
-    {% if data %}
-    {% block javascript %}
     <script type="text/javascript">
+        {% if data is not none %}
+        {% block paymentDetail %}
         {% include "payment/payment_detail.js" %}
+        {% endblock %}
+        {% else %}
+        {% block nonpayment %}
+        {% include "payment/non_payment.js" %};
+        {% endblock %}       
+        {% endif %}
         window.onload = setData;
-
     </script>
-    {% endblock %}
-    {% endif %}
-
 </head>
 <body>
-	<!-- ++++++++++++++++++++++navbar++++++++++++++++++++++ -->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<a class="navbar-brand" href="Default.aspx">
-			<img src="{{ url_for('static',filename="band.png")}}" alt="Logo" width="45" height="30" />
-		</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
+    {% block Navbar %}
+    {% include "navbar.html" %}
+    {% endblock %} 
 
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">หน้าหลัก <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/api/search_tour">หน้าจัดการลูกค้า</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/api/search_invoice">Invoice</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/api/search_payment">Payment</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <!-- ++++++++++++++++++++++end navbar++++++++++++++++++++++ -->
     <div class="content-inner">
         <!-- Page Header-->
         <header class="page-header">
@@ -89,7 +68,11 @@
                         <div class="card">
                             <div class="card-header d-flex align-items-center">
                                 <div class="col-sm-2">
+                                    {% if data is not none %}
                                     <h3 class="h4">{{ data["PAYMENT_TYPE"] }} เลขที่ :</h3>
+                                    {% else %}
+                                    <h3 class="h4">สร้างใบรับเงิน </h3>
+                                    {% endif %}
                                 </div>
                                 <div class="col-sm-1">
                                     <h3 class="h4">{{ data["PAYMENT_NO"] }}</h3>
@@ -145,7 +128,7 @@
                                     <div class="form-group row">
                                         <div class="col-md-9">
                                             <label class="form-control-label">Address</label>
-                                            <input id="ADDRESS" type="text" class="form-control form-control-sm" placeholder="address" value= '{{ data["ADDRESS"] }}'>
+                                            <input id="address" type="text" class="form-control form-control-sm" placeholder="address" value= '{{ data["ADDRESS"] }}'>
                                         </div>                                 
                                     </div>
                                     <div class="line"></div>
@@ -176,7 +159,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="form-control-label">วิธีการจ่ายเงิน</label>
-                                                <select id="paymentType" class="form-control">
+                                                <select id="paymentType" class="form-control" onchange="changePayment()">
                                                     <option value="None" disabled selected>Select</option>
                                                     {% for paymentType in paymentTypes %}
                                                     <option value="{{ paymentType["VALUE"] }}">{{paymentType["PAYMENT_NAME"]}}</option>
@@ -212,20 +195,43 @@
                                     </div>
                                     <div class="line"></div>
                                     <div class="form-group row">
-                                        <div class="col-md-6">
-                                        </div>
-                                        <div class="col-md-2">
-                                            <input id="autoVat" type="checkbox" value="" checked="" class="checkbox-template">
-                                            <label for="checkboxCustom2">Auto Vat</label>
+                                        <div class="col-md-8">
                                         </div>
                                         <div class="col-md-4">
                                             <div class="row">
-                                                <div class="col-md-3">
+                                                <div class="col-md-4">
+                                                    <label class="form-control-label">Summary (Before Vat)</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="input-group">
+                                                        <input id="totalNoVat" type="text" class="form-control form-control-sm" placeholder="0.00" value= '{{ data["TOTAL_ALL"] }}' required><span class="input-group-addon">Bath</span>
+                                                    </div>
+                                                </div>   
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                        </div>
+                                        <div class="col-md-2">
+                                            {% if data is not none %}
+                                            
+
+                                            
+                                            {% else %}
+                                            <input id="autoVat" type="checkbox" value="" checked="" class="checkbox-template">
+                                            <label for="checkboxCustom2">Auto Vat</label>    
+                                            {% endif %}
+                                            
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <div class="col-md-4">
                                                     <label class="form-control-label">Vat</label>
                                                 </div>
-                                                <div class="col-md-9">
+                                                <div class="col-md-8">
                                                     <div class="input-group">
-                                                        <input id="vat" type="text" class="form-control form-control-sm" disabled="" placeholder="0.00" value= '{{ data["VAT"] }}'><span class="input-group-addon">Bath</span>
+                                                        <input id="vat" type="text" class="form-control form-control-sm" placeholder="0.00" value= '{{ data["VAT"] }}'><span class="input-group-addon">Bath</span>
                                                     </div>
                                                 </div>   
                                             </div>
@@ -236,12 +242,12 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="row">
-                                                <div class="col-md-3">
+                                                <div class="col-md-4">
                                                     <label class="form-control-label">Summary</label>
                                                 </div>
-                                                <div class="col-md-9">
+                                                <div class="col-md-8">
                                                     <div class="input-group">
-                                                        <input id="totalAll" type="text" class="form-control form-control-sm" disabled="" placeholder="0.00" value= '{{ data["TOTAL_ALL"] }}' required><span class="input-group-addon">Bath</span>
+                                                        <input id="totalAll" type="text" class="form-control form-control-sm" placeholder="0.00" value= '{{ data["TOTAL_VAT"] }}' required><span class="input-group-addon">Bath</span>
                                                     </div>
                                                 </div>   
                                             </div>
@@ -250,7 +256,14 @@
                                     <div class="form-group row">
                                         <div class="col-sm-10">
                                             <button type="submit" class="btn btn-primary" id="submit">Save changes</button>
-                                            <button type="reset" class="btn btn-secondary">Clear</button>
+                                            {% if data is not none %}
+                                            
+
+                                            
+                                            {% else %}
+                                            <button type="reset" class="btn btn-secondary">Clear</button>   
+                                            {% endif %}
+                                            
                                         </div>
                                     </div>
                                 </div>

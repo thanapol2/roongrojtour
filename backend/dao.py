@@ -544,8 +544,9 @@ def getPaymentDetail(paymentNo,isVat):
 		"  s.TH_NAME||' '||s.TH_SURNAME as sales_name,			" \
         "  ph.invoice_no,                                       " \
         "  ph.REVISED,                           				" \
-        "  ph.invoice_type                                       " \
-          "FROM 													" \
+        "  ph.invoice_type,                                     " \
+        "  ph.TOTAL_ALL+ph.VAT as TOTAL_VAT                     " \
+        "FROM 													" \
 		"  (SELECT p.payment_no,								" \
 		"		    h.customer_id,								            " \
 		"		    h.customer_name, 							            " \
@@ -597,6 +598,7 @@ def getPaymentDetail(paymentNo,isVat):
         result['INVOICE_NO'] = row[17]
         result['REVISED'] = row[18]
         result['INVOICE_TYPE'] = row[19]
+        result['TOTAL_VAT'] = row[20]
     cur.close()
     conn.close()
     return result

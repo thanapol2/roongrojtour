@@ -7,7 +7,7 @@ $(document).ready(function() {
     "columnDefs": [ {
       "targets": 0,
       "data": null,
-      "defaultContent": '<button type="button" id="remove">Delete</button>'
+      "defaultContent": '<button type="remove" id="remove">Delete</button>'
     } ]
   });
 
@@ -75,12 +75,37 @@ function clearInput() {
 
 function vatOptions(myRadio) {
     // 1 vatcal , 2 adjust, 3no vat
-    var vat_type = myRadio.value;
-    if(vat_type ==2){
-      document.getElementById("vat").disabled=false
-    }else if(vat_type ==3 ){
-      document.getElementById("vat").value = '0.00'
-      document.getElementById("vat").disabled=true
-    }
-    
+  var vat_type = myRadio.value;
+  if(vat_type ==2){
+    document.getElementById("vat").disabled=false
+  }else if(vat_type ==3 ){
+    document.getElementById("vat").value = '0.00'
+    document.getElementById("vat").disabled=true
+  }   
+}
+
+function revised(){
+  document.getElementById("salesID").disabled = false
+  document.getElementById("salesName").disabled = false
+  document.getElementById("issueDate").disabled = false
+  document.getElementById("due").disabled = false
+
+  document.getElementById("ref").disabled = false
+  document.getElementById("subject").disabled = false
+
+  document.getElementById("tourName").disabled = false
+
+  document.getElementById("taxID").disabled = false
+  document.getElementById("tel").disabled = false
+  document.getElementById("email").disabled = false
+  document.getElementById("attention").disabled = false
+  document.getElementById("address").disabled = false
+
+  document.getElementById("addBtn").disabled = false
+  document.getElementById("clearDetail").disabled = false
+
+  document.getElementById("vatCal").disabled = false
+  document.getElementById("adjustVat").disabled = false
+  document.getElementById("noVat").disabled = false
+  $('button[type="remove"]').prop('disabled', false)
 }

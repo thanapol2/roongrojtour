@@ -119,7 +119,7 @@ def newInvoice(invoiceType):
         invoiceTypes = RTS_TYPE
     else:
         invoiceTypes = RT_TYPE
-    return render_template("invoice_detail.html",data=[],rows=[],invoiceTypes=invoiceTypes)
+    return render_template("invoice_detail.html",data=None,rows=[],invoiceTypes=invoiceTypes)
 
 #  payment_no = No_Type
 @app.route('/api/search_payment/<paymentNo>')
@@ -131,7 +131,7 @@ def getPayment(paymentNo):
 @app.route('/api/create_noninvoice')
 def create_noninvoicet():
     data = []
-    return render_template("payment_detail.html", data=data, banks=BANKS, paymentTypes=PAYMENT_TYPES)
+    return render_template("payment_detail.html", data=None, banks=BANKS, paymentTypes=PAYMENT_TYPES)
 
 @app.route('/api/update_payment',methods = ['POST'])
 def createupdate_payment():
