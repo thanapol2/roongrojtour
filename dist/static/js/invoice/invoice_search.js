@@ -45,15 +45,15 @@ $(document).ready(function() {
     );
   $('#example tbody').on( 'click', 'button', function () {
     var data = table.row( $(this).parents('tr') ).data();
-    document.location.href = "/api/search_invoice/"+data[1]
+    document.location.href = "/api/invoice/"+data[1]
   } );
 
   // Event listener to the two range filtering inputs to redraw on input
 });
 
 function clickNewRT(){
-  document.location.href = "/api/new_invoice/rt"
+  document.location.href = "/api/rtinvoice"
 }
 function clickNewRTS(){
-  document.location.href = "/api/new_invoice/rts"
+  document.location.href = "/api/rtsinvoice"
 }

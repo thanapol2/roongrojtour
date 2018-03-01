@@ -13,7 +13,7 @@ $(document).ready(function() {
 	} );
 	$('#example tbody').on( 'click', 'button', function () {
 		var data = table.row( $(this).parents('tr') ).data();
-		document.location.href = "/api/search_tour/"+data[0]
+		document.location.href = "/api/tour/"+data[0]
 	} );
 	// $('#example tbody').on( 'dblclick', 'tr', function (e) {
 	// 	var id = table.row( $(this).parents('tr') ).data();
@@ -23,8 +23,8 @@ $(document).ready(function() {
 	// } );
 } );
 function clickNewTour(){
-	document.location.href = "/api/new_tour"
+	document.location.href = "/api/tour"
 }
 function clickNewCompany(){
-	document.location.href = "/api/new_company"
+	document.location.href = "/api/company"
 }

@@ -40,7 +40,7 @@ function clickSubmit(){
 		"POST_NO" :post,
 		"REMARK" :detail})
 
-	xmlhttp.open("POST", "/api/update_company")
+	xmlhttp.open("POST", "/api/company")
 	xmlhttp.setRequestHeader("Content-Type", "application/json ; charset=UTF-8" )
 	xmlhttp.send(json)
 }

@@ -1,28 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Roongroj Tour</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-
-
-    <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
-    <!-- Fontastic Custom icon font-->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/fontastic.css') }}">
-    <!-- Font Awesome CSS-->
-    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/font-awesome/css/font-awesome.min.css') }}">
-    <!-- Google fonts - Poppins -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
-    <!-- theme stylesheet-->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.default.css') }}" id="theme-stylesheet">
-    <!-- Custom stylesheet - for your changes-->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
-    <!-- Favicon-->
-    <link rel="shortcut icon" href="{{ url_for('static',filename='image/icon.png')}}">
-
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-
+    {% block headjs %}
+    {% include "base/headjs.html" %}
+    {% endblock %} 
+    
     <!-- data table style script -->
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
@@ -44,7 +26,7 @@
 </head>
 <body>
     {% block Navbar %}
-    {% include "navbar.html" %}
+    {% include "base/navbar.html" %}
     {% endblock %} 
 
     <div class="content-inner">
@@ -58,7 +40,7 @@
         <div class="breadcrumb-holder container-fluid">
             <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item active"><a href="/api/search_invoice">Invoice Search</a></li>
+                <li class="breadcrumb-item active"><a href="/api/invoice_list">Invoice Search</a></li>
                 <li class="breadcrumb-item active">Invoice Detail</li>
             </ul>
         </div>

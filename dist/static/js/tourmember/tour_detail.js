@@ -158,7 +158,7 @@ function clickSubmit(){
 		"NO_SEAFOOD" : no_seafood,
 		"NO_SHRIMP" : no_shrimp,
 		"NO_FISH" : no_fish})
-	xmlhttp.open("POST", "/api/update_tour")
+	xmlhttp.open("POST", "/api/tour")
 	xmlhttp.setRequestHeader("Content-Type", "application/json ; charset=UTF-8" )
 	xmlhttp.send(json)
 }

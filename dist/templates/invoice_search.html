@@ -1,31 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Roongroj Tour</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
+    {% block headjs %}
+    {% include "base/headjs.html" %}
+    {% endblock %} 
 
-    <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
-    <!-- Fontastic Custom icon font-->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/fontastic.css') }}">
-    <!-- Font Awesome CSS-->
-    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/font-awesome/css/font-awesome.min.css') }}">
-    <!-- Google fonts - Poppins -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
-    <!-- theme stylesheet-->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.default.css') }}" id="theme-stylesheet">
-    <!-- Custom stylesheet - for your changes-->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
-    <!-- Favicon-->
-    <link rel="shortcut icon" href="{{ url_for('static',filename='image/icon.png')}}">
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">        
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-    
     <!-- data table style script -->
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
@@ -37,7 +17,7 @@
 <body>
 	<!-- ++++++++++++++++++++++navbar++++++++++++++++++++++ -->
     {% block Navbar %}
-    {% include "navbar.html" %}
+    {% include "base/navbar.html" %}
     {% endblock %} 
 
     <br /><br />

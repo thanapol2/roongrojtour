@@ -52,7 +52,7 @@ $(document).ready(function() {
     else if(data[1]='ใบรับเงิน') {
       type = '_N'
     }
-    document.location.href = "/api/search_payment/"+data[2]+type
+    document.location.href = "/api/payment/"+data[2]+type
   } );
   // Event listener to the two range filtering inputs to redraw on input
 });
