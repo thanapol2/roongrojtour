@@ -1,0 +1,20 @@
+    <!-- Modal -->
+    <div class="modal fade" id="search_modal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Search Customer</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-6">
+                        <label class="form-control-label">ชื่อลูกค้า</label>
+                        <input id="searchName" type="text" class="form-control form-control-sm" placeholder="Customer Name" value= '{{ data["CUSTOMER_NAME"] }}' required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>  
+        </div>
+    </div>

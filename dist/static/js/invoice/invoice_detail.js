@@ -20,7 +20,7 @@ $(document).ready(function() {
         $('#service').val(),
         $('#invoiceType').val(),
         $('#qty').val(),
-        $('#price').val(),
+        $('#qty').val(),
         $('#sum').val()
         ] ).draw( false );
       var sumColumn = table.column(5).data().reduce(function(a,b){
@@ -62,7 +62,11 @@ $(document).ready(function() {
 function calSumRow() {
   var qty = document.getElementById("qty").value;
   var price = document.getElementById("price").value;
-  document.getElementById("sum").value = price*qty;
+  if(document.getElementById("invoiceType").value=='Discount'){
+    document.getElementById("sum").value = price*qty*-1;
+  }else{
+    document.getElementById("sum").value = price*qty;
+  }
 }
 
 function clearInput() {
@@ -108,4 +112,16 @@ function revised(){
   document.getElementById("adjustVat").disabled = false
   document.getElementById("noVat").disabled = false
   $('button[type="remove"]').prop('disabled', false)
+}
+
+function changeTittle() {
+  var e = document.getElementById("invoiceType");
+  var invoiceType = e.options[e.selectedIndex].value
+  var qty = document.getElementById("qty").value;
+  var price = document.getElementById("price").value;
+  if (invoiceType=="Discount") {
+    document.getElementById("sum").value = price*qty*-1;
+  } else {
+    document.getElementById("sum").value = price*qty;
+  }
 }
